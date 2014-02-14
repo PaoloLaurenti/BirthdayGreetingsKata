@@ -2,7 +2,7 @@
 {
     public class BirthdayGreetingsEngine
     {
-        public BirthdayGreetingsEngine(GreetingsDeliveryService greetingsDeliverService)
+        public BirthdayGreetingsEngine(PeopleRepository peopleRepository, GreetingsDeliveryService greetingsDeliverService)
         {
         }
 

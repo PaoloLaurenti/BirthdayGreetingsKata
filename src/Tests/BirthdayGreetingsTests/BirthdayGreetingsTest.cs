@@ -1,4 +1,5 @@
-﻿using BirthdayGreetings;
+﻿using System.Collections.Generic;
+using BirthdayGreetings;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -11,7 +12,9 @@ namespace BirthdayGreetingsTests
         public void ShouldSendNoGreetingsWhenThereAreNotAnyEmployees()
         {
             var greetingsDeliverService = MockRepository.GenerateMock<GreetingsDeliveryService>();
-            var sut = new BirthdayGreetingsEngine(greetingsDeliverService);
+            var peopleRepository = MockRepository.GenerateStub<PeopleRepository>();
+            peopleRepository.Stub(pr => pr.GetAll()).Return(new List<PersonDTO>());
+            var sut = new BirthdayGreetingsEngine(peopleRepository, greetingsDeliverService);
 
             sut.SendGreetings();
 
