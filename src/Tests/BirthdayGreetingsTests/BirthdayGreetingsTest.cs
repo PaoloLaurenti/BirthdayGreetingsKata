@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using BirthdayGreetings;
+using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace BirthdayGreetingsTests
 {
@@ -6,9 +8,14 @@ namespace BirthdayGreetingsTests
     public class BirthdayGreetingsTest
     {
         [Test]
-        public void Nothing()
+        public void ShouldSendNoGreetingsWhenThereAreNotAnyEmployees()
         {
+            var greetingsDeliverService = MockRepository.GenerateMock<GreetingsDeliveryService>();
+            var sut = new BirthdayGreetingsEngine(greetingsDeliverService);
 
+            sut.SendGreetings();
+
+            greetingsDeliverService.AssertWasNotCalled(gds => gds.Deliver());
         }
     }
 }
