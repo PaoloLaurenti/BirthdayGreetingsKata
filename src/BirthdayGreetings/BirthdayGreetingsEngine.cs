@@ -1,4 +1,6 @@
-﻿namespace BirthdayGreetings
+﻿using System;
+
+namespace BirthdayGreetings
 {
     public class BirthdayGreetingsEngine
     {
@@ -6,7 +8,7 @@
         {
         }
 
-        public void SendGreetings()
+        public void SendGreetingsToPeopleBornInThis(DateTime date)
         {
         }
     }

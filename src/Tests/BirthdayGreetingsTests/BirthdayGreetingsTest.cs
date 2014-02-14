@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using BirthdayGreetings;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -16,7 +17,7 @@ namespace BirthdayGreetingsTests
             peopleRepository.Stub(pr => pr.GetAll()).Return(new List<PersonDTO>());
             var sut = new BirthdayGreetingsEngine(peopleRepository, greetingsDeliverService);
 
-            sut.SendGreetings();
+            sut.SendGreetingsToPeopleBornInThis(DateTime.Now);
 
             greetingsDeliverService.AssertWasNotCalled(gds => gds.Deliver());
         }
