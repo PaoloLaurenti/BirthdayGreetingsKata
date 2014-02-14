@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using BirthdayGreetings;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -7,19 +6,46 @@ using Rhino.Mocks;
 namespace BirthdayGreetingsTests
 {
     [TestFixture]
-    public class BirthdayGreetingsTest
+    public partial class BirthdayGreetingsTest
     {
+        private GreetingsDeliveryService _greetingsDeliverService;
+        private PeopleRepository _peopleRepository;
+        private BirthdayGreetingsEngine _sut;
+
+        private static PersonDTO CreatePersonNotBornToday()
+        {
+            var now = DateTime.Now;
+            var month = now.Month == 12 ? 1 : now.Month + 1;
+            var day = now.Day == DateTime.DaysInMonth(1982, now.Month) ? 1 : now.Day + 1;
+            return new PersonDTO { Birthday = new DateTime(1982, month, day) };
+        }
+
+        [SetUp]
+        public void Init()
+        {
+            _greetingsDeliverService = MockRepository.GenerateMock<GreetingsDeliveryService>();
+            _peopleRepository = MockRepository.GenerateStub<PeopleRepository>();
+            _sut = new BirthdayGreetingsEngine(_peopleRepository, _greetingsDeliverService);
+        }
+
         [Test]
         public void ShouldSendNoGreetingsWhenThereAreNotAnyEmployees()
         {
-            var greetingsDeliverService = MockRepository.GenerateMock<GreetingsDeliveryService>();
-            var peopleRepository = MockRepository.GenerateStub<PeopleRepository>();
-            peopleRepository.Stub(pr => pr.GetAll()).Return(new List<PersonDTO>());
-            var sut = new BirthdayGreetingsEngine(peopleRepository, greetingsDeliverService);
+            GivenNoPeopleToSendGreetingsTo();
 
-            sut.SendGreetingsToPeopleBornInThis(DateTime.Now);
+            WhenGreetingsAreSentOnlyToPeopleBorn(DateTime.Now);
 
-            greetingsDeliverService.AssertWasNotCalled(gds => gds.Deliver());
+            ThenNoGreetingsAreSent();
+        }
+
+        [Test]
+        public void ShouldSendNoGreetingsThereAreEmployeesWithBirthdayDifferentThanToday()
+        {
+            GivenAllPeopleWithBirthdayDifferentThanToday();
+
+            WhenGreetingsAreSentOnlyToPeopleBorn(DateTime.Now);
+
+            ThenNoGreetingsAreSent();
         }
     }
 }

@@ -52,6 +52,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BirthdayGreetingsTest.cs" />
+    <Compile Include="BirthdayGreetingsTest.GHERKIN.cs">
+		<DependentUpon>BirthdayGreetingsTest.cs</DependentUpon>
+	</Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
