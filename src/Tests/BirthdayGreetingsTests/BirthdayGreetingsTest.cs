@@ -39,7 +39,7 @@ namespace BirthdayGreetingsTests
         }
 
         [Test]
-        public void ShouldSendNoGreetingsThereAreEmployeesWithBirthdayDifferentThanToday()
+        public void ShouldSendNoGreetingsWhenThereAreEmployeesWithBirthdayDifferentThanToday()
         {
             GivenAllPeopleWithBirthdayDifferentThanToday();
 
