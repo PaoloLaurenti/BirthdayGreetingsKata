@@ -1,7 +1,9 @@
-﻿namespace BirthdayGreetings
+﻿using System.Collections.Generic;
+
+namespace BirthdayGreetings
 {
     public interface GreetingsDeliveryService
     {
-        void Deliver();
+        void Deliver(IEnumerable<GreetingDto> greetings);
     }
 }

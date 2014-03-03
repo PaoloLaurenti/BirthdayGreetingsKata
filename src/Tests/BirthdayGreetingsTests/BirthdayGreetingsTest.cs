@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BirthdayGreetings;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -11,14 +12,7 @@ namespace BirthdayGreetingsTests
         private GreetingsDeliveryService _greetingsDeliverService;
         private PeopleRepository _peopleRepository;
         private BirthdayGreetingsEngine _sut;
-
-        private static PersonDTO CreatePersonNotBornToday()
-        {
-            var now = DateTime.Now;
-            var month = now.Month == 12 ? 1 : now.Month + 1;
-            var day = now.Day == DateTime.DaysInMonth(1982, now.Month) ? 1 : now.Day + 1;
-            return new PersonDTO { Birthday = new DateTime(1982, month, day) };
-        }
+        private List<PersonDto> _allPeopleWithBirthdayEqualToToday;
 
         [SetUp]
         public void Init()
@@ -26,6 +20,7 @@ namespace BirthdayGreetingsTests
             _greetingsDeliverService = MockRepository.GenerateMock<GreetingsDeliveryService>();
             _peopleRepository = MockRepository.GenerateStub<PeopleRepository>();
             _sut = new BirthdayGreetingsEngine(_peopleRepository, _greetingsDeliverService);
+            _allPeopleWithBirthdayEqualToToday = new List<PersonDto> { CreatePersonBornToday(), CreatePersonBornToday() };
         }
 
         [Test]
@@ -33,19 +28,29 @@ namespace BirthdayGreetingsTests
         {
             GivenNoPeopleToSendGreetingsTo();
 
-            WhenGreetingsAreSentOnlyToPeopleBorn(DateTime.Now);
+            WhenItSendsGreetingsToPeopleBornOn(DateTime.Now);
 
             ThenNoGreetingsAreSent();
         }
 
         [Test]
-        public void ShouldSendNoGreetingsWhenThereAreEmployeesWithBirthdayDifferentThanToday()
+        public void ShouldSendNoGreetingsWhenAllEmployeesHaveBirthdayDifferentThanToday()
         {
             GivenAllPeopleWithBirthdayDifferentThanToday();
 
-            WhenGreetingsAreSentOnlyToPeopleBorn(DateTime.Now);
+            WhenItSendsGreetingsToPeopleBornOn(DateTime.Now);
 
             ThenNoGreetingsAreSent();
+        }
+
+        [Test]
+        public void ShouldSendGreetingsToAllPeopleWhenAllPeopleHaveBirthdayEqualToToday()
+        {
+            GivenAllPeopleWithBirthdayEqualToToday();
+
+            WhenItSendsGreetingsToPeopleBornOn(DateTime.Now);
+
+            ThenGreetingsHaveBeenSentToAllPeople();
         }
     }
 }

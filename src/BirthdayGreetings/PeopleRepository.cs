@@ -4,6 +4,6 @@ namespace BirthdayGreetings
 {
     public interface PeopleRepository
     {
-        IEnumerable<PersonDTO> GetAll();
+        IEnumerable<PersonDto> GetAll();
     }
 }

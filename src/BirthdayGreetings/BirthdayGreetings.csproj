@@ -40,9 +40,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BirthdayGreetingsEngine.cs" />
+    <Compile Include="GreetingDto.cs" />
     <Compile Include="GreetingsDeliveryService.cs" />
     <Compile Include="PeopleRepository.cs" />
-    <Compile Include="PersonDTO.cs" />
+    <Compile Include="PersonDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
