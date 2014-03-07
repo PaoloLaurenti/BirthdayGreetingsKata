@@ -41,15 +41,15 @@ namespace BirthdayGreetingsTests
         private void ThenGreetingsHaveBeenSentToAllPeople()
         {
             var expectedGreetings = _allPeopleWithBirthdayEqualToToday
-                                .Select(p => CreateGreeting(p.FirstName, p.LastName, p.Address, p.Email))
+                                .Select(p => CreateGreeting(p.FirstName, p.LastName, p.Email))
                                 .ToList();
             _greetingsDeliverService.AssertWasCalled(gds => gds.Deliver(Arg<IEnumerable<GreetingDto>>.Matches(en => CheckGreetingsAreEqual(expectedGreetings, en))));
         }
 
-        private static GreetingDto CreateGreeting(string firstName, string lastName, string address, string email)
+        private static GreetingDto CreateGreeting(string firstName, string lastName, string email)
         {
             var text = string.Format("Dear {0} {1}, happy birthday!", firstName, lastName);
-            return new GreetingDto { Address = address, Email = email, Text = text };
+            return new GreetingDto { Email = email, Text = text };
         }
 
         private PersonDto CreatePersonNotBornToday()
@@ -71,15 +71,8 @@ namespace BirthdayGreetingsTests
                 FirstName = firstName,
                 LastName = lastName,
                 Birthday = new DateTime(rand.Next(1950, 2000), today.Month, today.Day),
-                Address = GetRandomAddress(),
                 Email = string.Format("{0}{1}@gmail.com", firstName, lastName)
             };
-        }
-
-        private string GetRandomAddress()
-        {
-            var rand = new Random(DateTime.Now.Millisecond);
-            return string.Format("Via {0} {1}", _streetNames[rand.Next(0, _streetNames.Count - 1)], rand.Next(1, 200));
         }
 
         private string GetRandomFirstName()
@@ -106,12 +99,12 @@ namespace BirthdayGreetingsTests
         {
             public bool Equals(GreetingDto x, GreetingDto y)
             {
-                return x.Address == y.Address && x.Email == y.Email && x.Text == y.Text;
+                return x.Email == y.Email && x.Text == y.Text;
             }
 
             public int GetHashCode(GreetingDto obj)
             {
-                return string.Format("{0}-{1}-{2}", obj.Address, obj.Email, obj.Text).GetHashCode();
+                return string.Format("{0}-{1}", obj.Email, obj.Text).GetHashCode();
             }
         }
     }

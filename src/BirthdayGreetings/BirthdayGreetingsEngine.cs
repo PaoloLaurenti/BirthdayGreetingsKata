@@ -32,7 +32,6 @@ namespace BirthdayGreetings
         {
             return new GreetingDto
                 {
-                    Address = p.Address,
                     Email = p.Email,
                     Text = string.Format("Dear {0} {1}, happy birthday!", p.FirstName, p.LastName)
                 };
