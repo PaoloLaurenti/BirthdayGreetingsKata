@@ -12,7 +12,10 @@ namespace BirthdayGreetingsTests
         private GreetingsDeliveryService _greetingsDeliverService;
         private PeopleRepository _peopleRepository;
         private BirthdayGreetingsEngine _sut;
+        private List<PersonDto> _peopleWithBirthdayEqualToToday;
+        private List<PersonDto> _peopleWithBirthdayNotEqualToToday;
         private List<PersonDto> _allPeopleWithBirthdayEqualToToday;
+        private List<PersonDto> _halfThePeopleWithBirthdayEqualToToday;
 
         [SetUp]
         public void Init()
@@ -20,7 +23,13 @@ namespace BirthdayGreetingsTests
             _greetingsDeliverService = MockRepository.GenerateMock<GreetingsDeliveryService>();
             _peopleRepository = MockRepository.GenerateStub<PeopleRepository>();
             _sut = new BirthdayGreetingsEngine(_peopleRepository, _greetingsDeliverService);
-            _allPeopleWithBirthdayEqualToToday = new List<PersonDto> { CreatePersonBornToday(), CreatePersonBornToday() };
+            _peopleWithBirthdayEqualToToday = new List<PersonDto> { CreatePersonBornToday(), CreatePersonBornToday() };
+            _peopleWithBirthdayNotEqualToToday = new List<PersonDto> { CreatePersonNotBornToday(), CreatePersonNotBornToday() };
+            _allPeopleWithBirthdayEqualToToday = new List<PersonDto>(_peopleWithBirthdayEqualToToday);
+
+            _halfThePeopleWithBirthdayEqualToToday = new List<PersonDto>();
+            _halfThePeopleWithBirthdayEqualToToday.AddRange(_peopleWithBirthdayNotEqualToToday);
+            _halfThePeopleWithBirthdayEqualToToday.AddRange(_peopleWithBirthdayEqualToToday);
         }
 
         [Test]
@@ -51,6 +60,16 @@ namespace BirthdayGreetingsTests
             WhenItSendsGreetingsToPeopleBornOn(DateTime.Now);
 
             ThenGreetingsHaveBeenSentToAllPeople();
+        }
+
+        [Test]
+        public void ShouldSendGreetingsOnlyToPeopleWithBirthdayEqualToToday()
+        {
+            GivenHalfPeopleWithBirthdayEqualToToday();
+
+            WhenItSendsGreetingsToPeopleBornOn(DateTime.Now);
+
+            ThenGreetingsHaveBeenSentToHalfThePeople();
         }
     }
 }

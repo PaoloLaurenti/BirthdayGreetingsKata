@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using BirthdayGreetings;
 using Rhino.Mocks;
-using SharpTestsEx;
 
 namespace BirthdayGreetingsTests
 {
@@ -11,7 +10,6 @@ namespace BirthdayGreetingsTests
     {
         readonly List<string> _firstNames = new List<string> { "Pino", "Lucia", "Paolo", "Marco", "Elena" };
         readonly List<string> _lastNames = new List<string> { "Graziani", "Menti", "Piccioni", "Vanti", "Arcetti" };
-        readonly List<string> _streetNames = new List<string> { "Orti", "Santi", "Lirci", "Vetti", "Arcioni" };
 
         private void GivenNoPeopleToSendGreetingsTo()
         {
@@ -28,6 +26,11 @@ namespace BirthdayGreetingsTests
             _peopleRepository.Stub(pr => pr.GetAll()).Return(_allPeopleWithBirthdayEqualToToday);
         }
 
+        private void GivenHalfPeopleWithBirthdayEqualToToday()
+        {
+            _peopleRepository.Stub(pr => pr.GetAll()).Return(_halfThePeopleWithBirthdayEqualToToday);
+        }
+
         private void WhenItSendsGreetingsToPeopleBornOn(DateTime today)
         {
             _sut.SendGreetingsToPeopleBornInThis(today);
@@ -41,8 +44,16 @@ namespace BirthdayGreetingsTests
         private void ThenGreetingsHaveBeenSentToAllPeople()
         {
             var expectedGreetings = _allPeopleWithBirthdayEqualToToday
-                                .Select(p => CreateGreeting(p.FirstName, p.LastName, p.Email))
-                                .ToList();
+                                        .Select(p => CreateGreeting(p.FirstName, p.LastName, p.Email))
+                                        .ToList();
+            _greetingsDeliverService.AssertWasCalled(gds => gds.Deliver(Arg<IEnumerable<GreetingDto>>.Matches(en => CheckGreetingsAreEqual(expectedGreetings, en))));
+        }
+
+        private void ThenGreetingsHaveBeenSentToHalfThePeople()
+        {
+            var expectedGreetings = _peopleWithBirthdayEqualToToday
+                                        .Select(p => CreateGreeting(p.FirstName, p.LastName, p.Email))
+                                        .ToList();
             _greetingsDeliverService.AssertWasCalled(gds => gds.Deliver(Arg<IEnumerable<GreetingDto>>.Matches(en => CheckGreetingsAreEqual(expectedGreetings, en))));
         }
 
