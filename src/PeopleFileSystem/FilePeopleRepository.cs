@@ -1,6 +1,6 @@
+using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
+using System.Linq;
 using BirthdayGreetings;
 
 namespace PeopleFileSystem
@@ -16,27 +16,26 @@ namespace PeopleFileSystem
 
         public IEnumerable<PersonDto> GetAll()
         {
-            ReadLines();
+            var lines = FileUtils.ReadAllLinesWithNoLock(_filePath);
 
-            return new List<PersonDto>();
+            return lines
+                .Skip(1)
+                .Select(l =>
+                    {
+                        var values = l.Split(',');
+                        return CreatePersonDto(values[0], values[1], DateTime.Parse(values[2]), values[3]);
+                    });
         }
 
-        private IEnumerable<string> ReadLines()
+        private static PersonDto CreatePersonDto(string firstName, string lastName, DateTime birthday, string email)
         {
-            var lines = new List<string>();
-
-            if (!File.Exists(_filePath))
-                throw new FileNotFoundException();
-
-            using (var fs = new FileStream(_filePath, FileMode.Open, FileAccess.Read, FileShare.Read, 0x1000, FileOptions.SequentialScan))
-            using (var sr = new StreamReader(fs, Encoding.UTF8))
-            {
-                string line;
-                while ((line = sr.ReadLine()) != null)
-                    lines.Add(line);
-            }
-
-            return lines;
+            return new PersonDto
+                {
+                    FirstName = firstName,
+                    LastName = lastName,
+                    Birthday = birthday,
+                    Email = email
+                };
         }
     }
 }
