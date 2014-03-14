@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeopleFileSystem", "..\Peop
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{88095595-7B22-4907-A43E-D1872BD9061E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailGreetingsServiceTests", "MailGreetingsServiceTests\MailGreetingsServiceTests.csproj", "{14AAC758-8EAC-48EC-957D-FE9906D6EDA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailGreetingsService", "..\MailGreetingsService\MailGreetingsService.csproj", "{1A66834D-39E0-4DFD-845D-BE98A5F7A85B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,12 +37,21 @@ Global
 		{A4F4F9A5-D2F4-42B8-AEB0-2590515C7C38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4F4F9A5-D2F4-42B8-AEB0-2590515C7C38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4F4F9A5-D2F4-42B8-AEB0-2590515C7C38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14AAC758-8EAC-48EC-957D-FE9906D6EDA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14AAC758-8EAC-48EC-957D-FE9906D6EDA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14AAC758-8EAC-48EC-957D-FE9906D6EDA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14AAC758-8EAC-48EC-957D-FE9906D6EDA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A66834D-39E0-4DFD-845D-BE98A5F7A85B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A66834D-39E0-4DFD-845D-BE98A5F7A85B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A66834D-39E0-4DFD-845D-BE98A5F7A85B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A66834D-39E0-4DFD-845D-BE98A5F7A85B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{73F9B952-A4F4-47ED-8ABB-C3665863363B} = {88095595-7B22-4907-A43E-D1872BD9061E}
 		{47501162-2108-41F5-A1D1-E6C4927DDB79} = {88095595-7B22-4907-A43E-D1872BD9061E}
+		{73F9B952-A4F4-47ED-8ABB-C3665863363B} = {88095595-7B22-4907-A43E-D1872BD9061E}
+		{14AAC758-8EAC-48EC-957D-FE9906D6EDA8} = {88095595-7B22-4907-A43E-D1872BD9061E}
 	EndGlobalSection
 EndGlobal
