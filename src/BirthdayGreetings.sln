@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthdayGreetingsEngine", "BirthdayGreetingsEngine\BirthdayGreetingsEngine.csproj", "{233949AD-B74F-4E95-BCA2-DE74083F9741}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F247DF38-1891-4CAF-8D47-0A5B96D9AAA4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthdayGreetingsEngine.Test", "BirthdayGreetingsEngine.Test\BirthdayGreetingsEngine.Test.csproj", "{EA05FC88-3A3F-4E2E-A173-446E69BA07D9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{D30C8BE7-1910-41EB-ABB3-6F6E6ECC79DD}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{233949AD-B74F-4E95-BCA2-DE74083F9741}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{233949AD-B74F-4E95-BCA2-DE74083F9741}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{233949AD-B74F-4E95-BCA2-DE74083F9741}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{233949AD-B74F-4E95-BCA2-DE74083F9741}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA05FC88-3A3F-4E2E-A173-446E69BA07D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA05FC88-3A3F-4E2E-A173-446E69BA07D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA05FC88-3A3F-4E2E-A173-446E69BA07D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA05FC88-3A3F-4E2E-A173-446E69BA07D9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EA05FC88-3A3F-4E2E-A173-446E69BA07D9} = {F247DF38-1891-4CAF-8D47-0A5B96D9AAA4}
+	EndGlobalSection
+EndGlobal
