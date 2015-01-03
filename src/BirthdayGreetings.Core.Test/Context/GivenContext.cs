@@ -10,11 +10,13 @@ namespace BirthdayGreetings.Core.Test.Context
     {
         private readonly IEmployeeGateway _employeesGateway;
         private readonly DateTime _chosenDate;
+        private readonly List<EmployeeDto> _employeesWihtBirthdateEqualToChosenDate;
 
         internal GivenContext(IEmployeeGateway employeesGateway, DateTime chosenDate)
         {
             _employeesGateway = employeesGateway;
             _chosenDate = chosenDate;
+            _employeesWihtBirthdateEqualToChosenDate = new List<EmployeeDto>();
         }
 
         internal void NoEmployee()
@@ -29,13 +31,32 @@ namespace BirthdayGreetings.Core.Test.Context
 
         internal void AllEmployeesWithDateOfBirthDifferentThanChosenDate()
         {
-            var listSize = new Random(DateTime.Now.Millisecond).Next(1, 100);
-            Given(GetAListOf(() => EmployeeDtoFactory.CreateRandomEmployeeDtoWithDateOfBirthDifferentFrom(_chosenDate), listSize));
+            Given(GetAListOfEmployeesWithBirthdateDifferentThanChosenDate());
         }
 
-        private static IEnumerable<T> GetAListOf<T>(Func<T> factory, int size)
+        private IEnumerable<EmployeeDto> GetAListOfEmployeesWithBirthdateDifferentThanChosenDate()
         {
+            return GetAListWithRandomSizeOf(() => EmployeeDtoFactory.CreateRandomEmployeeDtoWithDateOfBirthDifferentFrom(_chosenDate));
+        }
+
+        internal void OnlyOneEmployeeWithDateOfBirthEqualToChosedDate()
+        {
+            var employeeWithBirthdateEqualToChosenDate = EmployeeDtoFactory.CreateRandomEmployeeDtoWithDateOfBirthEqualTo(_chosenDate);
+            _employeesWihtBirthdateEqualToChosenDate.Add(employeeWithBirthdateEqualToChosenDate);
+            var employees = GetAListOfEmployeesWithBirthdateDifferentThanChosenDate().ToList();
+            employees.Add(employeeWithBirthdateEqualToChosenDate);
+            Given(employees);
+        }
+
+        private static IEnumerable<T> GetAListWithRandomSizeOf<T>(Func<T> factory)
+        {
+            var size = new Random(DateTime.Now.Millisecond).Next(1, 100);
             return Enumerable.Range(0, size).Select(x => factory()).ToList();
+        }
+
+        internal void DoWithGivenEmployeesWithDateOfBirthEqualToChosenDate(Action<IEnumerable<EmployeeDto>> action)
+        {
+            action(_employeesWihtBirthdateEqualToChosenDate);
         }
     }
 }
