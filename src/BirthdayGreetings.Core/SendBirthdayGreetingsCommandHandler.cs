@@ -1,7 +1,7 @@
 ﻿using Common.Logging;
 using paramore.brighter.commandprocessor;
 
-namespace BirthdayGreetingsEngine
+namespace BirthdayGreetings.Core
 {
     public class SendBirthdayGreetingsCommandHandler : RequestHandler<SendBirthdayGreetingsCommand>
     {

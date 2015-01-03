@@ -1,7 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 
-namespace BirthdayGreetingsEngine
+namespace BirthdayGreetings.Core
 {
     public interface IGreetingsChannelGateway
     {

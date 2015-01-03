@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace BirthdayGreetingsEngine
+namespace BirthdayGreetings.Core
 {
     public interface IEmployeeGateway
     {

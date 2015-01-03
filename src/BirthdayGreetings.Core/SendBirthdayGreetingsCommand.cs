@@ -1,7 +1,7 @@
 ﻿using System;
 using paramore.brighter.commandprocessor;
 
-namespace BirthdayGreetingsEngine
+namespace BirthdayGreetings.Core
 {
     public class SendBirthdayGreetingsCommand : Command
     {
