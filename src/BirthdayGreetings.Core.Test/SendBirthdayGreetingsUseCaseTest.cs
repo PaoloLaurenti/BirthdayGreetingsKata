@@ -31,10 +31,10 @@ namespace BirthdayGreetings.Core.Test
         }
 
         [Fact]
-        public void Should_send_one_greetings_to_one_employee_when_only_one_employee_has_his_birthday_equal_to_chosen_date()
+        public void Should_send_one_greeting_to_one_employee_when_only_one_employee_has_his_birthday_equal_to_the_chosen_date()
         {
             _context
-                .Given(x => x.OnlyOneEmployeeWithDateOfBirthEqualToChosedDate())
+                .Given(x => x.OnlyOneEmployeeWithDateOfBirthEqualToTheChosenDate())
                 .When(x => x.WhenSendingBirthdayGreetings())
                 .Then(x => x.BirthdayGreetingsHaveBeenSentToEmployeesWithBirthdateEqualToChosenDate());
         }

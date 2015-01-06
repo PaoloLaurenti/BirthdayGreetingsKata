@@ -1,7 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using BirthdayGreetings.Core.Test.Extension;
 using Common.Logging;
 using FakeItEasy;
 
@@ -37,8 +37,7 @@ namespace BirthdayGreetings.Core.Test.Context
         private IGreetingsChannelGateway CreateFakeGreetingsChannelGateway()
         {
             var fakeGreetingsChannelGateway = A.Fake<IGreetingsChannelGateway>();
-            A.CallTo(() => fakeGreetingsChannelGateway.Send(A<IEnumerable<GreetingDto>>._)).Invokes(
-                (IEnumerable<GreetingDto> greetings) => _thenContext.NotifyGreetingsSent(greetings));
+            fakeGreetingsChannelGateway.ConfigureToNotifyGreetingsSent(greetings => _thenContext.NotifyGreetingsSent(greetings));
             return fakeGreetingsChannelGateway;
         }
 
@@ -49,8 +48,7 @@ namespace BirthdayGreetings.Core.Test.Context
 
         private void InitWhenContext()
         {
-            var sut = new SendBirthdayGreetingsCommandHandler(EmployeesGateway, GreetingsChannelGateway, A.Fake<ILog>());
-            _whenContext = new WhenContext(ChosenDate, sut);
+            _whenContext = new WhenContext(EmployeesGateway, GreetingsChannelGateway, ChosenDate);
         }
 
         private void InitThenContext()

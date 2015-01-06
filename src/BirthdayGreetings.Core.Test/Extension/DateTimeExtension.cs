@@ -1,8 +1,9 @@
 using System;
+using System.Collections;
 
 namespace BirthdayGreetings.Core.Test.Extension
 {
-    internal static  class DateTimeExtension
+    internal static class DateTimeExtension
     {
         internal static DateTime GetANewDateWithDifferentDay(this DateTime date)
         {

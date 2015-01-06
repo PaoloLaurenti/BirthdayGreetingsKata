@@ -1,4 +1,6 @@
 using System;
+using Common.Logging;
+using FakeItEasy;
 
 namespace BirthdayGreetings.Core.Test.Context
 {
@@ -7,10 +9,10 @@ namespace BirthdayGreetings.Core.Test.Context
         private readonly DateTime _chosenDate;
         private readonly SendBirthdayGreetingsCommandHandler _sut;
 
-        internal WhenContext(DateTime chosenDate, SendBirthdayGreetingsCommandHandler sut)
+        internal WhenContext(IEmployeeGateway employeesGateway, IGreetingsChannelGateway greetingsChannelGateway, DateTime chosenDate)
         {
             _chosenDate = chosenDate;
-            _sut = sut;
+            _sut = new SendBirthdayGreetingsCommandHandler(employeesGateway, greetingsChannelGateway, A.Fake<ILog>());
         }
 
         internal void WhenSendingBirthdayGreetings()

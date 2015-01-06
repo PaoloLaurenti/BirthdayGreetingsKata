@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using BirthdayGreetings.Core.Test.Extension;
 using FakeItEasy;
-using FluentAssertions;
-using KellermanSoftware.CompareNetObjects;
+using Xunit;
 
 namespace BirthdayGreetings.Core.Test.Context
 {
@@ -19,6 +18,11 @@ namespace BirthdayGreetings.Core.Test.Context
             _givenContext = givenContext;
         }
 
+        internal void NotifyGreetingsSent(IEnumerable<GreetingDto> greetings)
+        {
+            _greetingsSent = greetings;
+        }
+
         internal void NoBirthdayGreetingsHaveBeenSent()
         {
             A.CallTo(() => _greetingsChannelGateway.Send(null)).WithAnyArguments().MustNotHaveHappened();
@@ -27,18 +31,21 @@ namespace BirthdayGreetings.Core.Test.Context
         internal void BirthdayGreetingsHaveBeenSentToEmployeesWithBirthdateEqualToChosenDate()
         {
             A.CallTo(() => _greetingsChannelGateway.Send(A<IEnumerable<GreetingDto>>._)).MustHaveHappened(Repeated.Exactly.Once);
+            AssertThatGreetingsSentAreOnlyExpectedOnes();
+        }
+
+        private void AssertThatGreetingsSentAreOnlyExpectedOnes()
+        {
             _givenContext
                 .DoWithGivenEmployeesWithDateOfBirthEqualToChosenDate(employees =>
                 {
-                    var comparisonResult = new CompareLogic(new ComparisonConfig { IgnoreCollectionOrder = true }).Compare(
-                        employees.Select(e => e.FirstName).ToList(), _greetingsSent.Select(d => d.FirstName).ToList());
-                    comparisonResult.AreEqual.Should().BeTrue("Because greetings should be sent only to employees with date of birth equal to chosen date. Expected greetings to send are different from those that have been sent: {0}", comparisonResult.DifferencesString);
+                    var employeesNamesWhoShouldReceiveGreetings = employees.Select(e => e.FirstName).ToList();
+                    employeesNamesWhoShouldReceiveGreetings
+                        .CompareItemValuesIgnoringOrder(
+                            _greetingsSent.Select(d => d.FirstName).ToList(), 
+                            () => { },
+                            differences => Assert.True(false, string.Format("Greetings sent are not those that were expected: {0}", differences)));
                 });
-        }
-
-        internal void NotifyGreetingsSent(IEnumerable<GreetingDto> greetings)
-        {
-            _greetingsSent = greetings;
         }
     }
 }

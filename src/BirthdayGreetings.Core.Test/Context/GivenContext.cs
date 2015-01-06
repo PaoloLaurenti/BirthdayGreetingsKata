@@ -31,21 +31,18 @@ namespace BirthdayGreetings.Core.Test.Context
 
         internal void AllEmployeesWithDateOfBirthDifferentThanChosenDate()
         {
-            Given(GetAListOfEmployeesWithBirthdateDifferentThanChosenDate());
+            Given(GetAListOfEmployeesWithBirthdateDifferentFromChosenDate());
         }
 
-        private IEnumerable<EmployeeDto> GetAListOfEmployeesWithBirthdateDifferentThanChosenDate()
+        private IEnumerable<EmployeeDto> GetAListOfEmployeesWithBirthdateDifferentFromChosenDate()
         {
             return GetAListWithRandomSizeOf(() => EmployeeDtoFactory.CreateRandomEmployeeDtoWithDateOfBirthDifferentFrom(_chosenDate));
         }
 
-        internal void OnlyOneEmployeeWithDateOfBirthEqualToChosedDate()
+        internal void OnlyOneEmployeeWithDateOfBirthEqualToTheChosenDate()
         {
-            var employeeWithBirthdateEqualToChosenDate = EmployeeDtoFactory.CreateRandomEmployeeDtoWithDateOfBirthEqualTo(_chosenDate);
-            _employeesWihtBirthdateEqualToChosenDate.Add(employeeWithBirthdateEqualToChosenDate);
-            var employees = GetAListOfEmployeesWithBirthdateDifferentThanChosenDate().ToList();
-            employees.Add(employeeWithBirthdateEqualToChosenDate);
-            Given(employees);
+            _employeesWihtBirthdateEqualToChosenDate.Add(EmployeeDtoFactory.CreateRandomEmployeeDtoWithDateOfBirthEqualTo(_chosenDate));
+            Given(GetAListOfEmployeesWithBirthdateDifferentFromChosenDate().Union(_employeesWihtBirthdateEqualToChosenDate));
         }
 
         private static IEnumerable<T> GetAListWithRandomSizeOf<T>(Func<T> factory)
