@@ -22,7 +22,7 @@ namespace BirthdayGreetings.Core.Greetings
 
         public void SendAll()
         {
-            var greetings = _employeesToSendGreetingsTo.Select(e => new GreetingDto { FirstName = e.FirstName }).ToList();
+            var greetings = _employeesToSendGreetingsTo.Select(e => new GreetingDto { FirstName = e.FirstName, Email = e.Email }).ToList();
             if (greetings.Any())
                 _greetingsChannelGateway.Send(greetings);
         }

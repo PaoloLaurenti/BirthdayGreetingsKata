@@ -40,10 +40,10 @@ namespace BirthdayGreetings.Core.Test.Context
             _givenContext
                 .DoWithGivenEmployeesWithDateOfBirthEqualToChosenDate(employees =>
                 {
-                    var employeesNamesWhoShouldReceiveGreetings = employees.Select(e => e.FirstName).ToList();
+                    var employeesNamesWhoShouldReceiveGreetings = employees.Select(e => new { e.FirstName, e.Email }).ToList();
                     employeesNamesWhoShouldReceiveGreetings
                         .CompareItemValuesIgnoringOrder(
-                            _greetingsSent.Select(d => d.FirstName).ToList(), 
+                            _greetingsSent.Select(d => new { d.FirstName, d.Email }).ToList(), 
                             () => { },
                             differences => Assert.True(false, string.Format("Greetings sent are not those that were expected: {0}", differences)));
                 });
