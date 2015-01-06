@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BirthdayGreetings.Core.Employees;
 using BirthdayGreetings.Core.Test.Creation;
 using FakeItEasy;
 

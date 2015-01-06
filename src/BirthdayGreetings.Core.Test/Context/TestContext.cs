@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using BirthdayGreetings.Core.Employees;
+using BirthdayGreetings.Core.Greetings;
 using BirthdayGreetings.Core.Test.Extension;
 using Common.Logging;
 using FakeItEasy;

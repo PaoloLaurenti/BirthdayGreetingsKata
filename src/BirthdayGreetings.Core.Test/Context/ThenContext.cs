@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using BirthdayGreetings.Core.Greetings;
 using BirthdayGreetings.Core.Test.Extension;
 using FakeItEasy;
 using Xunit;

@@ -1,4 +1,4 @@
-namespace BirthdayGreetings.Core
+namespace BirthdayGreetings.Core.Greetings
 {
     public class GreetingDto
     {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace BirthdayGreetings.Core
+namespace BirthdayGreetings.Core.Greetings
 {
     public interface IGreetingsChannelGateway
     {

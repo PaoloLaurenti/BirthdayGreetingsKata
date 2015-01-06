@@ -1,4 +1,6 @@
 using System;
+using BirthdayGreetings.Core.Employees;
+using BirthdayGreetings.Core.Greetings;
 using Common.Logging;
 using FakeItEasy;
 

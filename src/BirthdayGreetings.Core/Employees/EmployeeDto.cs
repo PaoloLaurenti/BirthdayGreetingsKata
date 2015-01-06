@@ -1,6 +1,6 @@
 using System;
 
-namespace BirthdayGreetings.Core
+namespace BirthdayGreetings.Core.Employees
 {
     public class EmployeeDto
     {
