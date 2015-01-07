@@ -17,7 +17,7 @@ namespace BirthdayGreetings.Core.Test
         {
             _context
                 .Given(x => x.NoEmployee())
-                .When(x => x.WhenSendingBirthdayGreetings())
+                .When(x => x.SendingBirthdayGreetings())
                 .Then(x => x.NoBirthdayGreetingsHaveBeenSent());
         }
 
@@ -26,7 +26,7 @@ namespace BirthdayGreetings.Core.Test
         {
             _context
                 .Given(x => x.AllEmployeesWithDateOfBirthDifferentThanChosenDate())
-                .When(x => x.WhenSendingBirthdayGreetings())
+                .When(x => x.SendingBirthdayGreetings())
                 .Then(x => x.NoBirthdayGreetingsHaveBeenSent());
         }
 
@@ -35,13 +35,21 @@ namespace BirthdayGreetings.Core.Test
         {
             _context
                 .Given(x => x.OnlyOneEmployeeWithDateOfBirthEqualToTheChosenDate())
-                .When(x => x.WhenSendingBirthdayGreetings())
+                .When(x => x.SendingBirthdayGreetings())
+                .Then(x => x.BirthdayGreetingsHaveBeenSentToEmployeesWithBirthdateEqualToChosenDate());
+        }
+
+        [Fact]
+        public void Should_send_many_greetings_to_all_employees_that_have_their_birthdays_equal_to_today()
+        {
+            _context
+                .Given(x => x.ManyEmployeesWithDateOfBirthEqualToTheChosenDate())
+                .When(x => x.SendingBirthdayGreetings())
                 .Then(x => x.BirthdayGreetingsHaveBeenSentToEmployeesWithBirthdateEqualToChosenDate());
         }
 
         //TODO LIST
         // - Should_not_send_greetings_if_null_employees_list_has_been_retrieved
-        // - Should_send_many_greetings_to_all_employees_that_have_their_birthdays_equal_to_today
         // - Should_raise_exception_when_it_is_unable_to_retrieve_employees
         // - Should_notify_skipped_employees_that_have_no_name
         // - Should_notify_skipped_employees_that_have_no_birthday_date

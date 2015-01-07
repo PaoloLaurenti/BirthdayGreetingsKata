@@ -17,7 +17,7 @@ namespace BirthdayGreetings.Core.Test.Context
             _sut = new SendBirthdayGreetingsCommandHandler(employeesGateway, greetingsChannelGateway, A.Fake<ILog>());
         }
 
-        internal void WhenSendingBirthdayGreetings()
+        internal void SendingBirthdayGreetings()
         {
             _sut.Handle(new SendBirthdayGreetingsCommand(_chosenDate));
         }
