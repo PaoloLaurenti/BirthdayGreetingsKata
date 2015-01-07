@@ -31,7 +31,7 @@ namespace BirthdayGreetings.Core.Test.Context
 
         internal void BirthdayGreetingsHaveBeenSentToEmployeesWithBirthdateEqualToChosenDate()
         {
-            A.CallTo(() => _greetingsChannelGateway.Send(A<IEnumerable<GreetingDto>>._)).MustHaveHappened(Repeated.Exactly.Once);
+            A.CallTo(() => _greetingsChannelGateway.Send(A<IEnumerable<GreetingDto>>.Ignored)).MustHaveHappened(Repeated.Exactly.Once);
             AssertThatGreetingsSentAreOnlyExpectedOnes();
         }
 
@@ -40,10 +40,10 @@ namespace BirthdayGreetings.Core.Test.Context
             _givenContext
                 .DoWithGivenEmployeesWithDateOfBirthEqualToChosenDate(employees =>
                 {
-                    var employeesNamesWhoShouldReceiveGreetings = employees.Select(e => new { e.FirstName, e.Email }).ToList();
+                    var employeesNamesWhoShouldReceiveGreetings = employees.Select(GreetingDtoFactory.CreateGreetingFor).Sort().ToList();
                     employeesNamesWhoShouldReceiveGreetings
-                        .CompareItemValuesIgnoringOrder(
-                            _greetingsSent.Select(d => new { d.FirstName, d.Email }).ToList(), 
+                        .CompareAlreadySortedItems(
+                            _greetingsSent.Sort().ToList(), 
                             () => { },
                             differences => Assert.True(false, string.Format("Greetings sent are not those that were expected: {0}", differences)));
                 });

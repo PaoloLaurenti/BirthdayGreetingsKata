@@ -62,6 +62,7 @@
     <Compile Include="Employees\EmployeeRepository.cs" />
     <Compile Include="Greetings\GreetingDto.cs" />
     <Compile Include="Employees\IEmployeeGateway.cs" />
+    <Compile Include="Greetings\GreetingDtoFactory.cs" />
     <Compile Include="Greetings\GreetingService.cs" />
     <Compile Include="Greetings\IGreetingsChannelGateway.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
