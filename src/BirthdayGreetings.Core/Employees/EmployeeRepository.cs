@@ -14,7 +14,8 @@ namespace BirthdayGreetings.Core.Employees
 
         internal List<Employee> FindAll()
         {
-            return _employeesGateway.GetEmployees().Select(Employee.Create).ToList();
+            var employeeDtos = _employeesGateway.GetEmployees() ?? new List<EmployeeDto>();
+            return employeeDtos.Select(Employee.Create).ToList();
         }
     }
 }

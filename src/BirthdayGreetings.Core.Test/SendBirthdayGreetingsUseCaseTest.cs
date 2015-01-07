@@ -48,8 +48,16 @@ namespace BirthdayGreetings.Core.Test
                 .Then(x => x.BirthdayGreetingsHaveBeenSentToEmployeesWithBirthdateEqualToChosenDate());
         }
 
+        [Fact]
+        public void Should_not_send_greetings_if_null_employees_list_has_been_retrieved()
+        {
+            _context
+                .Given(x => x.NullEmployee())
+                .When(x => x.SendingBirthdayGreetings())
+                .Then(x => x.NoBirthdayGreetingsHaveBeenSent());
+        }
+
         //TODO LIST
-        // - Should_not_send_greetings_if_null_employees_list_has_been_retrieved
         // - Should_raise_exception_when_it_is_unable_to_retrieve_employees
         // - Should_raise_exception_when_it_is_unable_to_send_greetings
         // - Should_send_greetings_on_Februrary_29th_to_employees_with_birthday_equal_to_Februrary_29th_during_leap_years

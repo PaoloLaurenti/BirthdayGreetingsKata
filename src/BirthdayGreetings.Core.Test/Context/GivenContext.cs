@@ -45,6 +45,11 @@ namespace BirthdayGreetings.Core.Test.Context
             GivenEmployees();
         }
 
+        internal void NullEmployee()
+        {
+            Given(null);
+        }
+
         private void GivenEmployees()
         {
             Given(GetARandomListOfEmployeesWithBirthdateDifferentFromChosenDate().Union(_employeesWihtBirthdateEqualToChosenDate));
