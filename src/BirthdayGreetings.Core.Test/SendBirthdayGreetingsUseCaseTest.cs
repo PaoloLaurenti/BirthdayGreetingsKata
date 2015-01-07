@@ -51,8 +51,6 @@ namespace BirthdayGreetings.Core.Test
         //TODO LIST
         // - Should_not_send_greetings_if_null_employees_list_has_been_retrieved
         // - Should_raise_exception_when_it_is_unable_to_retrieve_employees
-        // - Should_notify_skipped_employees_that_have_no_name
-        // - Should_notify_skipped_employees_that_have_no_birthday_date
         // - Should_raise_exception_when_it_is_unable_to_send_greetings
         // - Should_send_greetings_on_Februrary_29th_to_employees_with_birthday_equal_to_Februrary_29th_during_leap_years
         // - Should_send_greetings_on_Februrary_28th_to_employees_with_birthday_equal_to_Februrary_29th_during_not_leap_years
