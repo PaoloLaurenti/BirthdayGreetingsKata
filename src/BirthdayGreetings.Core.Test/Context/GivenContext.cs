@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using BirthdayGreetings.Common;
 using BirthdayGreetings.Core.Employees;
 using BirthdayGreetings.Core.Test.Creation;
 using FakeItEasy;
@@ -48,7 +47,7 @@ namespace BirthdayGreetings.Core.Test.Context
 
         internal void NullEmployee()
         {
-            Given(new Nothing<IEnumerable<EmployeeDto>>());
+            Given(null);
         }
 
         private void GivenEmployees()
@@ -57,11 +56,6 @@ namespace BirthdayGreetings.Core.Test.Context
         }
 
         private void Given(IEnumerable<EmployeeDto> employees)
-        {
-            Given(new Just<IEnumerable<EmployeeDto>>(employees));
-        }
-
-        private void Given(IMaybe<IEnumerable<EmployeeDto>> employees)
         {
             A.CallTo(() => _employeesGateway.GetEmployees()).Returns(employees);
         }

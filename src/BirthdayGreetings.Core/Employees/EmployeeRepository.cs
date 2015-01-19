@@ -18,6 +18,7 @@ namespace BirthdayGreetings.Core.Employees
         {
             return _employeesGateway
                     .GetEmployees()
+                    .ToMaybe()
                     .Map(TransformDtosToEmployees);
         }
 
