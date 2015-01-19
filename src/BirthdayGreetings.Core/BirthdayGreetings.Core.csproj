@@ -68,7 +68,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SendBirthdayGreetingsCommand.cs" />
     <Compile Include="SendBirthdayGreetingsCommandHandler.cs" />
-    <Compile Include="SendGreetingsStrategy.cs" />
+    <Compile Include="BirthdayGreetingsSendingStrategy.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

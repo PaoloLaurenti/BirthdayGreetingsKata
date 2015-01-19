@@ -19,10 +19,10 @@ namespace BirthdayGreetings.Core.Employees
             return _employeesGateway
                     .GetEmployees()
                     .ToMaybe()
-                    .Map(TransformDtosToEmployees);
+                    .Map(DtosToEmployees);
         }
 
-        private static IMaybe<List<Employee>> TransformDtosToEmployees(IEnumerable<EmployeeDto> employees)
+        private static IMaybe<List<Employee>> DtosToEmployees(IEnumerable<EmployeeDto> employees)
         {
             return employees.Select(Employee.Create).ToList().ToMaybe();
         }

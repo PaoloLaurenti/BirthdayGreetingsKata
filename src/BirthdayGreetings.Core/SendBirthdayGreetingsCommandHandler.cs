@@ -21,7 +21,7 @@ namespace BirthdayGreetings.Core
         {
             _employeeRepository
                 .FindAll()
-                .Map(allEmployees => SendGreetingsStrategy.GetOnlyEmployeesToSendGreetingsTo(allEmployees, command.ChosenDate))
+                .Map(BirthdayGreetingsSendingStrategy.Create(command.ChosenDate).GetOnlyEmployeesToSendGreetingsTo)
                 .Do(_greetingService.SendToAll);
             return base.Handle(command);
         }
