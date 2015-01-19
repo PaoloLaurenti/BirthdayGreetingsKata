@@ -1,4 +1,5 @@
-﻿using BirthdayGreetings.Core.Test.Context;
+﻿using BirthdayGreetings.Core.Employees;
+using BirthdayGreetings.Core.Test.Context;
 using Xunit;
 
 namespace BirthdayGreetings.Core.Test
@@ -57,8 +58,17 @@ namespace BirthdayGreetings.Core.Test
                 .Then(x => x.NoBirthdayGreetingsHaveBeenSent());
         }
 
+        [Fact]
+        public void Should_raise_employee_gateway_exception_when_it_is_unable_to_retrieve_employees()
+        {
+            _context
+                .Given(x => x.EmployeeGatewayExceptionRetrievingEmployees())
+                .When(x => x.SendingBirthdayGreetings())
+                .Then(x => x.NoBirthdayGreetingsHaveBeenSent())
+                .Then(x => x.AnExceptionHasBeenThrownAs<EmployeeGatewayException>());
+        }
+
         //TODO LIST
-        // - Should_raise_exception_when_it_is_unable_to_retrieve_employees
         // - Should_raise_exception_when_it_is_unable_to_send_greetings
         // - Should_send_greetings_on_Februrary_29th_to_employees_with_birthday_equal_to_Februrary_29th_during_leap_years
         // - Should_send_greetings_on_Februrary_28th_to_employees_with_birthday_equal_to_Februrary_29th_during_not_leap_years

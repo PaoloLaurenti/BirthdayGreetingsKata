@@ -75,5 +75,10 @@ namespace BirthdayGreetings.Core.Test.Context
         {
             action(_employeesWihtBirthdateEqualToChosenDate);
         }
+
+        internal void EmployeeGatewayExceptionRetrievingEmployees()
+        {
+            A.CallTo(() => _employeesGateway.GetEmployees()).Throws(x => new EmployeeGatewayException("Exception retrieving employees"));
+        }
     }
 }

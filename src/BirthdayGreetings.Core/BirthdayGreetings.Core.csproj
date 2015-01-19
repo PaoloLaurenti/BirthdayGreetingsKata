@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Employees\Employee.cs" />
     <Compile Include="Employees\EmployeeDto.cs" />
+    <Compile Include="Employees\EmployeeGatewayException.cs" />
     <Compile Include="Employees\EmployeeRepository.cs" />
     <Compile Include="Greetings\GreetingDto.cs" />
     <Compile Include="Employees\IEmployeeGateway.cs" />

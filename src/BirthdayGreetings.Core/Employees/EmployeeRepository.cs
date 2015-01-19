@@ -16,8 +16,7 @@ namespace BirthdayGreetings.Core.Employees
 
         internal IMaybe<List<Employee>> FindAll()
         {
-            return _employeesGateway
-                    .GetEmployees()
+            return _employeesGateway.GetEmployees()
                     .ToMaybe()
                     .Map(DtosToEmployees);
         }

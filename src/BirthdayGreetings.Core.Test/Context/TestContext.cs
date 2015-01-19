@@ -53,7 +53,7 @@ namespace BirthdayGreetings.Core.Test.Context
 
         private void InitThenContext()
         {
-            _thenContext = new ThenContext(GreetingsChannelGateway, _givenContext);
+            _thenContext = new ThenContext(GreetingsChannelGateway, _givenContext, _whenContext);
         }
 
         internal TestContext Given(Expression<Action<GivenContext>> expression)
