@@ -21,9 +21,8 @@ namespace BirthdayGreetings.Core
         {
             _employeeRepository
                 .FindAll()
-                .ForEach(e => e.DoOnBirthday(command.DateTime, employee => _greetingService.Collect(employee)));
-            _greetingService.SendAll();
-
+                .Map(allEmployees => SendGreetingsStrategy.GetOnlyEmployeesToSendGreetingsTo(allEmployees, command.ChosenDate))
+                .Do(_greetingService.SendToAll);
             return base.Handle(command);
         }
     }

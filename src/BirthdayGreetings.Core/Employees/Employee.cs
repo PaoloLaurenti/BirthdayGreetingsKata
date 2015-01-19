@@ -22,10 +22,10 @@ namespace BirthdayGreetings.Core.Employees
             _email = email;
         }
 
-        internal void DoOnBirthday(DateTime date, Action<EmployeeDto> toDo)
+        internal void DoOnBirthday(DateTime date, Action<EmployeeDto> action)
         {
             if (_dateOfBirth.Month == date.Month && _dateOfBirth.Day == date.Day)
-                toDo(ToDto());
+                action(ToDto());
         }
 
         private EmployeeDto ToDto()

@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using BirthdayGreetings.Common;
+using BirthdayGreetings.Common.Extensions;
 
 namespace BirthdayGreetings.Core.Employees
 {
@@ -12,10 +14,16 @@ namespace BirthdayGreetings.Core.Employees
             _employeesGateway = employeesGateway;
         }
 
-        internal List<Employee> FindAll()
+        internal IMaybe<List<Employee>> FindAll()
         {
-            var employeeDtos = _employeesGateway.GetEmployees() ?? new List<EmployeeDto>();
-            return employeeDtos.Select(Employee.Create).ToList();
+            return _employeesGateway
+                    .GetEmployees()
+                    .Map(TransformDtosToEmployees);
+        }
+
+        private static IMaybe<List<Employee>> TransformDtosToEmployees(IEnumerable<EmployeeDto> employees)
+        {
+            return employees.Select(Employee.Create).ToList().ToMaybe();
         }
     }
 }

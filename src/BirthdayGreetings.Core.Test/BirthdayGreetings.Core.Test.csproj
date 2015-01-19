@@ -95,6 +95,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BirthdayGreetings.Common\BirthdayGreetings.Common.csproj">
+      <Project>{DCDFEF36-EAD0-4421-876A-C490F8446B05}</Project>
+      <Name>BirthdayGreetings.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BirthdayGreetings.Core\BirthdayGreetings.Core.csproj">
       <Project>{8a8e0ceb-d588-42f5-b418-be7208b2c4a7}</Project>
       <Name>BirthdayGreetings.Core</Name>

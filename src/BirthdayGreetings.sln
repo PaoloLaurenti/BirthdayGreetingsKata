@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F247DF38-1891-4CAF-8D47-0A5B96D9AAA4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{D30C8BE7-1910-41EB-ABB3-6F6E6ECC79DD}"
@@ -13,6 +11,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthdayGreetings.Core.Test", "BirthdayGreetings.Core.Test\BirthdayGreetings.Core.Test.csproj", "{4767A1F1-12FA-412A-9E3B-BFED1428FD93}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthdayGreetings.Core", "BirthdayGreetings.Core\BirthdayGreetings.Core.csproj", "{8A8E0CEB-D588-42F5-B418-BE7208B2C4A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthdayGreetings.Common", "BirthdayGreetings.Common\BirthdayGreetings.Common.csproj", "{DCDFEF36-EAD0-4421-876A-C490F8446B05}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,6 +28,10 @@ Global
 		{8A8E0CEB-D588-42F5-B418-BE7208B2C4A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A8E0CEB-D588-42F5-B418-BE7208B2C4A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A8E0CEB-D588-42F5-B418-BE7208B2C4A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCDFEF36-EAD0-4421-876A-C490F8446B05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCDFEF36-EAD0-4421-876A-C490F8446B05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCDFEF36-EAD0-4421-876A-C490F8446B05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCDFEF36-EAD0-4421-876A-C490F8446B05}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

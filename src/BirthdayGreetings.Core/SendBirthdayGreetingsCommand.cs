@@ -5,16 +5,16 @@ namespace BirthdayGreetings.Core
 {
     public class SendBirthdayGreetingsCommand : Command
     {
-        private readonly DateTime _dateTime;
+        private readonly DateTime _chosenDate;
 
-        public SendBirthdayGreetingsCommand(DateTime dateTime) : base(Guid.NewGuid())
+        public SendBirthdayGreetingsCommand(DateTime chosenDate) : base(Guid.NewGuid())
         {
-            _dateTime = dateTime;
+            _chosenDate = chosenDate;
         }
 
-        public DateTime DateTime
+        public DateTime ChosenDate
         {
-            get { return _dateTime; }
+            get { return _chosenDate; }
         }
     }
 }
