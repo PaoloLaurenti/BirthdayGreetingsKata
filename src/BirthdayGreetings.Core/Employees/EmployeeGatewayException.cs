@@ -7,7 +7,6 @@ namespace BirthdayGreetings.Core.Employees
     {
         public EmployeeGatewayException()
         {
-            
         }
 
         public EmployeeGatewayException(string message)

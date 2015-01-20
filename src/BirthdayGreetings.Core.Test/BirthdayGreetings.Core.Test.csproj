@@ -89,7 +89,7 @@
     <Compile Include="Extension\GreetingDtoExtension.cs" />
     <Compile Include="Extension\GreetingsChannelGatewayExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SendBirthdayGreetingsUseCaseTest.cs" />
+    <Compile Include="SendBirthdayGreetingsScenarioTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

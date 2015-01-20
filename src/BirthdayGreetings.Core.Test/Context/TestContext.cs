@@ -43,7 +43,7 @@ namespace BirthdayGreetings.Core.Test.Context
 
         private void InitGivenContext()
         {
-            _givenContext = new GivenContext(EmployeesGateway, ChosenDate);
+            _givenContext = new GivenContext(EmployeesGateway, GreetingsChannelGateway, ChosenDate);
         }
 
         private void InitWhenContext()

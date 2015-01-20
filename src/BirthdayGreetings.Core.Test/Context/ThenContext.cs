@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using BirthdayGreetings.Core.Greetings;
 using BirthdayGreetings.Core.Test.Extension;
 using FakeItEasy;
@@ -55,8 +56,15 @@ namespace BirthdayGreetings.Core.Test.Context
 
         internal void AnExceptionHasBeenThrownAs<T>() where T : Exception
         {
-            _whenContext.EmployeeException.Should().NotBeNull(string.Format("Exception of type {0} has not been thrown as expected", typeof(T)));
-            _whenContext.EmployeeException.Message.Should().NotBeNullOrWhiteSpace("Exception message should not be empty");
+            var thrownException = (T) _whenContext
+                                        .GetType()
+                                        .GetProperties(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
+                                        .Single(x => typeof(T).IsAssignableFrom(x.PropertyType))
+                                        .GetValue(_whenContext);
+
+            thrownException.Should().NotBeNull(string.Format("An exception must be thrown f type {0}", typeof(T)));
+            thrownException.Should().BeOfType<T>(string.Format("Thrown exception should be of type {0} - Actual {1}", typeof(T), thrownException.GetType()));
+            thrownException.Message.Should().NotBeNullOrWhiteSpace("Exception message should not be empty");
         }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using BirthdayGreetings.Core.Employees;
+using BirthdayGreetings.Core.Greetings;
 using BirthdayGreetings.Core.Test.Creation;
 using FakeItEasy;
 
@@ -10,12 +11,14 @@ namespace BirthdayGreetings.Core.Test.Context
     internal class GivenContext
     {
         private readonly IEmployeeGateway _employeesGateway;
+        private readonly IGreetingsChannelGateway _greetingsChannelGateway;
         private readonly DateTime _chosenDate;
         private readonly List<EmployeeDto> _employeesWihtBirthdateEqualToChosenDate;
 
-        internal GivenContext(IEmployeeGateway employeesGateway, DateTime chosenDate)
+        internal GivenContext(IEmployeeGateway employeesGateway, IGreetingsChannelGateway greetingsChannelGateway, DateTime chosenDate)
         {
             _employeesGateway = employeesGateway;
+            _greetingsChannelGateway = greetingsChannelGateway;
             _chosenDate = chosenDate;
             _employeesWihtBirthdateEqualToChosenDate = new List<EmployeeDto>();
         }
@@ -79,6 +82,11 @@ namespace BirthdayGreetings.Core.Test.Context
         internal void EmployeeGatewayExceptionRetrievingEmployees()
         {
             A.CallTo(() => _employeesGateway.GetEmployees()).Throws(x => new EmployeeGatewayException("Exception retrieving employees"));
+        }
+
+        internal void GreetingsChannelGatewayExceptionSendingGreetings()
+        {
+            A.CallTo(() => _greetingsChannelGateway.Send(null)).WithAnyArguments().Throws(x => new GreetingsChannelGatewayException("Exception sending greetings"));            
         }
     }
 }
