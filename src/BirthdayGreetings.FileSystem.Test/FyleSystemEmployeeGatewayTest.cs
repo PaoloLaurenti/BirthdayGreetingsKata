@@ -82,6 +82,14 @@ namespace BirthdayGreetings.FileSystem.Test
             _sut.Invoking(x => x.GetEmployees()).ShouldThrow<EmployeeGatewayException>();            
         }
 
+        [Fact]
+        public void Should_raise_exception_if_it_is_unable_to_interpret_employees_information()
+        {
+            File.AppendAllLines(_employeeFileFullPath, new [] {"LastName, FirstName, NotADate, Email"});
+
+            _sut.Invoking(x => x.GetEmployees()).ShouldThrow<EmployeeGatewayException>();            
+        }
+
         private void PrepareEmployeeFile()
         {
             _employeeFileFullPath = Path.GetTempFileName();
@@ -101,6 +109,5 @@ namespace BirthdayGreetings.FileSystem.Test
 
         //TODO LIST
         // Should_raise_exception_if_it_is_unable_to_interpret_employees_information
-        // Should_raise_exception_when_it_is_unable_to_access_file
     }
 }

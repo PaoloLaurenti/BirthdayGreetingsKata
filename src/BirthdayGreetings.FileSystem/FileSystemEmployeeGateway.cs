@@ -39,8 +39,15 @@ namespace BirthdayGreetings.FileSystem
 
         private static EmployeeDto CreateEmployeeDtoBy(string employeeRow)
         {
-            var employeeData = employeeRow.Split(',').Select(x => x.Trim()).ToList();
-            return new EmployeeDto(employeeData[0], employeeData[1], GetDateOfBirth(employeeData), employeeData[3]);
+            try
+            {
+                var employeeData = employeeRow.Split(',').Select(x => x.Trim()).ToList();
+                return new EmployeeDto(employeeData[0], employeeData[1], GetDateOfBirth(employeeData), employeeData[3]);
+            }
+            catch (Exception ex)
+            {
+                throw new EmployeeGatewayException(string.Format("Error occurred interpreting employee data of this row {0}: {1}", employeeRow, ex.Message), ex);
+            }
         }
 
         private static DateTime GetDateOfBirth(IReadOnlyList<string> employeeData)
