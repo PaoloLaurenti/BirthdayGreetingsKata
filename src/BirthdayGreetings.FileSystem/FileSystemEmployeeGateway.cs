@@ -21,10 +21,7 @@ namespace BirthdayGreetings.FileSystem
             var employeesOnFile = new List<EmployeeDto>();
             var employeesRows = File.ReadAllLines(_employeeFileFullPath).Skip(1).ToList();
             if (employeesRows.Any())
-            {
-                var employeeRow = employeesRows.First();
-                employeesOnFile.Add(CreateEmployeeDtoBy(employeeRow));
-            }
+                employeesOnFile.AddRange(employeesRows.Select(CreateEmployeeDtoBy));
             return employeesOnFile;
         }
 

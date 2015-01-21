@@ -48,6 +48,24 @@ namespace BirthdayGreetings.FileSystem.Test
             employees.Single().ShouldBeEquivalentTo(employeeOnFile, "It shoud provide the only employee listed in the employee file");
         }
 
+        [Fact]
+        public void Should_provide_a_list_with_all_employees_present_in_the_file()
+        {
+            var firstEmployeeOnFile = new EmployeeDto("FirstEmployeeLastName", "FirstEmployeeFirstName", DateTime.Now.AddYears(-31).Date, "FirstEmployeeEmail");
+            var secondEmployeeOnFile = new EmployeeDto("SecondEmployeeLastName", "SecondEmployeeFirstName", DateTime.Now.AddYears(-32).Date, "SecondEmployeeEmail");
+            var thirdEmployeeOnFile = new EmployeeDto("ThirdEmployeeLastName", "ThirdEmployeeFirstName", DateTime.Now.AddYears(-33).Date, "ThirdEmployeeEmail");
+            var employeesToPutInFile = new List<EmployeeDto> { firstEmployeeOnFile, secondEmployeeOnFile, thirdEmployeeOnFile };
+            PutEmployeesInformationInEmployeesFile(employeesToPutInFile);
+
+            var employees = _sut.GetEmployees().ToList();
+
+            employees.Count.Should().Be(employeesToPutInFile.Count);
+            employeesToPutInFile
+                .ForEach(e => employees
+                                .First(x => x.LastName == e.LastName)
+                                .ShouldBeEquivalentTo(e));
+        }
+
         private void PrepareEmployeeFile()
         {
             _employeeFileFullPath = Path.GetTempFileName();
@@ -66,7 +84,6 @@ namespace BirthdayGreetings.FileSystem.Test
         }
 
         //TODO LIST
-        // Should_provide_a_list_with_all_employees_present_in_the_file
         // Should_raise_exception_if_it_is_unable_to_interpret_employees_information
         // Should_raise_exception_when_it_is_unable_to_access_file
     }
