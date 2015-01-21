@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F247DF38-1891-4CAF-8D47-0A5B96D9AAA4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{D30C8BE7-1910-41EB-ABB3-6F6E6ECC79DD}"
@@ -13,6 +15,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthdayGreetings.Core", "BirthdayGreetings.Core\BirthdayGreetings.Core.csproj", "{8A8E0CEB-D588-42F5-B418-BE7208B2C4A7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthdayGreetings.Common", "BirthdayGreetings.Common\BirthdayGreetings.Common.csproj", "{DCDFEF36-EAD0-4421-876A-C490F8446B05}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthdayGreetings.FileSystem.Test", "BirthdayGreetings.FileSystem.Test\BirthdayGreetings.FileSystem.Test.csproj", "{657D8505-3AE2-4292-9722-554DEC4E3475}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthdayGreetings.FileSystem", "BirthdayGreetings.FileSystem\BirthdayGreetings.FileSystem.csproj", "{19EA0B42-8DAD-4531-A4F0-456538F0F386}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,11 +38,20 @@ Global
 		{DCDFEF36-EAD0-4421-876A-C490F8446B05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCDFEF36-EAD0-4421-876A-C490F8446B05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCDFEF36-EAD0-4421-876A-C490F8446B05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{657D8505-3AE2-4292-9722-554DEC4E3475}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{657D8505-3AE2-4292-9722-554DEC4E3475}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{657D8505-3AE2-4292-9722-554DEC4E3475}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{657D8505-3AE2-4292-9722-554DEC4E3475}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19EA0B42-8DAD-4531-A4F0-456538F0F386}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19EA0B42-8DAD-4531-A4F0-456538F0F386}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19EA0B42-8DAD-4531-A4F0-456538F0F386}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19EA0B42-8DAD-4531-A4F0-456538F0F386}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4767A1F1-12FA-412A-9E3B-BFED1428FD93} = {F247DF38-1891-4CAF-8D47-0A5B96D9AAA4}
+		{657D8505-3AE2-4292-9722-554DEC4E3475} = {F247DF38-1891-4CAF-8D47-0A5B96D9AAA4}
 	EndGlobalSection
 EndGlobal
