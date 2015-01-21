@@ -30,7 +30,7 @@ namespace BirthdayGreetings.FileSystem.Test
         }
 
         [Fact]
-        public void Should_provide_an_empty_list_when_employees_file_contains_only_the_header_row()
+        public void Should_provide_an_empty_list_getting_employees_when_employees_file_contains_only_the_header_row()
         {
             var employees = _sut.GetEmployees().ToList();
 
@@ -38,7 +38,7 @@ namespace BirthdayGreetings.FileSystem.Test
         }
 
         [Fact]
-        public void Should_provide_a_list_with_one_employee_when_file_contains_only_one_employee_information()
+        public void Should_provide_a_list_with_one_employee_getting_employees_when_file_contains_only_one_employee_informations()
         {
             var employeeOnFile = new EmployeeDto("EmployeeLastName", "EmployeeFirstName", DateTime.Now.AddYears(-30).Date, "EmployeeEmail");
             PutEmployeesInformationInEmployeesFile(new List<EmployeeDto> { employeeOnFile });
@@ -49,7 +49,7 @@ namespace BirthdayGreetings.FileSystem.Test
         }
 
         [Fact]
-        public void Should_provide_a_list_with_all_employees_present_in_the_file()
+        public void Should_provide_a_list_with_all_employees_present_in_the_file_when_getting_employees()
         {
             var firstEmployeeOnFile = new EmployeeDto("FirstEmployeeLastName", "FirstEmployeeFirstName", DateTime.Now.AddYears(-31).Date, "FirstEmployeeEmail");
             var secondEmployeeOnFile = new EmployeeDto("SecondEmployeeLastName", "SecondEmployeeFirstName", DateTime.Now.AddYears(-32).Date, "SecondEmployeeEmail");
@@ -67,12 +67,19 @@ namespace BirthdayGreetings.FileSystem.Test
         }
 
         [Fact]
-        public void Shoud_raise_exception_when_it_is_unable_to_access_the_employee_file()
+        public void Shoud_raise_exception_when_it_is_unable_to_access_the_employee_file_getting_employees()
         {
             using (File.OpenWrite(_employeeFileFullPath))
             {
                 _sut.Invoking(x => x.GetEmployees()).ShouldThrow<EmployeeGatewayException>();
             }
+        }
+
+        [Fact]
+        public void Shoud_raise_exception_getting_employees_when_employees_file_does_not_exist()
+        {
+            File.Delete(_employeeFileFullPath);
+            _sut.Invoking(x => x.GetEmployees()).ShouldThrow<EmployeeGatewayException>();            
         }
 
         private void PrepareEmployeeFile()
