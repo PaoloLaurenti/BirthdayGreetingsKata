@@ -66,6 +66,15 @@ namespace BirthdayGreetings.FileSystem.Test
                                 .ShouldBeEquivalentTo(e));
         }
 
+        [Fact]
+        public void Shoud_raise_exception_when_it_is_unable_to_access_the_employee_file()
+        {
+            using (File.OpenWrite(_employeeFileFullPath))
+            {
+                _sut.Invoking(x => x.GetEmployees()).ShouldThrow<EmployeeGatewayException>();
+            }
+        }
+
         private void PrepareEmployeeFile()
         {
             _employeeFileFullPath = Path.GetTempFileName();

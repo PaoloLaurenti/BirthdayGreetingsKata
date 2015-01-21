@@ -19,10 +19,22 @@ namespace BirthdayGreetings.FileSystem
         public IEnumerable<EmployeeDto> GetEmployees()
         {
             var employeesOnFile = new List<EmployeeDto>();
-            var employeesRows = File.ReadAllLines(_employeeFileFullPath).Skip(1).ToList();
+            var employeesRows = ReadAllFileLines().Skip(1).ToList();
             if (employeesRows.Any())
                 employeesOnFile.AddRange(employeesRows.Select(CreateEmployeeDtoBy));
             return employeesOnFile;
+        }
+
+        private IEnumerable<string> ReadAllFileLines()
+        {
+            try
+            {
+                return File.ReadAllLines(_employeeFileFullPath);
+            }
+            catch (Exception ex)
+            {
+                throw new EmployeeGatewayException(string.Format("Error occurred accessing file located to {0}: {1}", _employeeFileFullPath, ex.Message), ex);
+            }
         }
 
         private static EmployeeDto CreateEmployeeDtoBy(string employeeRow)
