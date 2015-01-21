@@ -22,11 +22,19 @@ namespace BirthdayGreetings.FileSystem.Test
         [Fact]
         public void Should_provide_an_empty_list_of_employees_when_file_is_empty()
         {
-            File.WriteAllText(_employeeFileFullPath, "");
+            EmptyEmployeeFile();
             
             var employees = _sut.GetEmployees().ToList();
 
-            employees.Any().Should().BeFalse("It should not provide anything when file is empty");
+            employees.Any().Should().BeFalse("It should not provide anything when employee file is empty");
+        }
+
+        [Fact]
+        public void Should_provide_an_empty_list_when_employees_file_contains_only_the_header_row()
+        {
+            var employees = _sut.GetEmployees().ToList();
+
+            employees.Any().Should().BeFalse("It should not provide anything when employee file contains only header row");
         }
 
         [Fact]
@@ -46,6 +54,11 @@ namespace BirthdayGreetings.FileSystem.Test
             File.WriteAllLines(_employeeFileFullPath, new List<string> {"last_name, first_name, date_of_birth, email"});
         }
 
+        private void EmptyEmployeeFile()
+        {
+            File.WriteAllText(_employeeFileFullPath, "");
+        }
+
         private void PutEmployeesInformationInEmployeesFile(IEnumerable<EmployeeDto> employeesToPutInFile)
         {
             var employeesRows = employeesToPutInFile.Select(x => string.Format("{0}, {1}, {2}, {3}", x.LastName, x.FirstName, x.DateOfBirth.ToString("yyyy/MM/dd"), x.Email));
@@ -53,7 +66,6 @@ namespace BirthdayGreetings.FileSystem.Test
         }
 
         //TODO LIST
-        // Should_provide_an_empty_list_when_employees_file_contains_only_the_header_row
         // Should_provide_a_list_with_all_employees_present_in_the_file
         // Should_raise_exception_if_it_is_unable_to_interpret_employees_information
         // Should_raise_exception_when_it_is_unable_to_access_file
