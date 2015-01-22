@@ -11,10 +11,10 @@ namespace BirthdayGreetings.Core.Test.Context
         private readonly DateTime _chosenDate;
         private readonly SendBirthdayGreetingsCommandHandler _sut;
 
-        internal WhenContext(IEmployeeGateway employeesGateway, IGreetingsChannelGateway greetingsChannelGateway, DateTime chosenDate)
+        internal WhenContext(IEmployeeGateway employeesGateway, IGreetingsGateway greetingsGateway, DateTime chosenDate)
         {
             _chosenDate = chosenDate;
-            _sut = new SendBirthdayGreetingsCommandHandler(employeesGateway, greetingsChannelGateway, A.Fake<ILog>());
+            _sut = new SendBirthdayGreetingsCommandHandler(employeesGateway, greetingsGateway, A.Fake<ILog>());
             EmployeeGatewayException = null;
             GreetingsChannelGatewayException = null;
         }

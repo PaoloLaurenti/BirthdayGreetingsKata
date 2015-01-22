@@ -24,6 +24,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unit", "Unit", "{8ED1E8AF-D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration", "{F803B17A-2D7F-47DF-A30B-15FB5F0AC93E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthdayGreetings.Email.Test", "BirthdayGreetings.Email.Test\BirthdayGreetings.Email.Test.csproj", "{36A16960-6A9E-4FC8-8C86-3E2D906D2864}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthdayGreetings.Email", "BirthdayGreetings.Email\BirthdayGreetings.Email.csproj", "{6257A993-258F-4612-ABF0-C4EA38A3CF2B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +54,14 @@ Global
 		{19EA0B42-8DAD-4531-A4F0-456538F0F386}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19EA0B42-8DAD-4531-A4F0-456538F0F386}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19EA0B42-8DAD-4531-A4F0-456538F0F386}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36A16960-6A9E-4FC8-8C86-3E2D906D2864}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36A16960-6A9E-4FC8-8C86-3E2D906D2864}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36A16960-6A9E-4FC8-8C86-3E2D906D2864}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36A16960-6A9E-4FC8-8C86-3E2D906D2864}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6257A993-258F-4612-ABF0-C4EA38A3CF2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6257A993-258F-4612-ABF0-C4EA38A3CF2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6257A993-258F-4612-ABF0-C4EA38A3CF2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6257A993-258F-4612-ABF0-C4EA38A3CF2B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,5 +71,6 @@ Global
 		{657D8505-3AE2-4292-9722-554DEC4E3475} = {F803B17A-2D7F-47DF-A30B-15FB5F0AC93E}
 		{8ED1E8AF-DA9D-4AB2-A0AC-8A5D79404DE1} = {F247DF38-1891-4CAF-8D47-0A5B96D9AAA4}
 		{F803B17A-2D7F-47DF-A30B-15FB5F0AC93E} = {F247DF38-1891-4CAF-8D47-0A5B96D9AAA4}
+		{36A16960-6A9E-4FC8-8C86-3E2D906D2864} = {F803B17A-2D7F-47DF-A30B-15FB5F0AC93E}
 	EndGlobalSection
 EndGlobal

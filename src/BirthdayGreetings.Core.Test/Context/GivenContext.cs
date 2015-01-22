@@ -11,14 +11,14 @@ namespace BirthdayGreetings.Core.Test.Context
     internal class GivenContext
     {
         private readonly IEmployeeGateway _employeesGateway;
-        private readonly IGreetingsChannelGateway _greetingsChannelGateway;
+        private readonly IGreetingsGateway _greetingsGateway;
         private readonly DateTime _chosenDate;
         private readonly List<EmployeeDto> _employeesWihtBirthdateEqualToChosenDate;
 
-        internal GivenContext(IEmployeeGateway employeesGateway, IGreetingsChannelGateway greetingsChannelGateway, DateTime chosenDate)
+        internal GivenContext(IEmployeeGateway employeesGateway, IGreetingsGateway greetingsGateway, DateTime chosenDate)
         {
             _employeesGateway = employeesGateway;
-            _greetingsChannelGateway = greetingsChannelGateway;
+            _greetingsGateway = greetingsGateway;
             _chosenDate = chosenDate;
             _employeesWihtBirthdateEqualToChosenDate = new List<EmployeeDto>();
         }
@@ -86,7 +86,7 @@ namespace BirthdayGreetings.Core.Test.Context
 
         internal void GreetingsChannelGatewayExceptionSendingGreetings()
         {
-            A.CallTo(() => _greetingsChannelGateway.Send(null)).WithAnyArguments().Throws(x => new GreetingsChannelGatewayException("Exception sending greetings"));            
+            A.CallTo(() => _greetingsGateway.Deliver(null)).WithAnyArguments().Throws(x => new GreetingsChannelGatewayException("Exception sending greetings"));            
         }
     }
 }

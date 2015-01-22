@@ -15,7 +15,7 @@ namespace BirthdayGreetings.Core.Test.Context
         private WhenContext _whenContext;
         private ThenContext _thenContext;
         private IEmployeeGateway _employeeGateway;
-        private IGreetingsChannelGateway _greetingsChannelGateway;
+        private IGreetingsGateway _greetingsGateway;
 
         internal TestContext()
         {
@@ -29,31 +29,31 @@ namespace BirthdayGreetings.Core.Test.Context
             get { return _employeeGateway ?? (_employeeGateway = A.Fake<IEmployeeGateway>()); }
         }
 
-        private IGreetingsChannelGateway GreetingsChannelGateway
+        private IGreetingsGateway GreetingsGateway
         {
-            get { return _greetingsChannelGateway ?? (_greetingsChannelGateway = CreateFakeGreetingsChannelGateway()); }
+            get { return _greetingsGateway ?? (_greetingsGateway = CreateFakeGreetingsChannelGateway()); }
         }
 
-        private IGreetingsChannelGateway CreateFakeGreetingsChannelGateway()
+        private IGreetingsGateway CreateFakeGreetingsChannelGateway()
         {
-            var fakeGreetingsChannelGateway = A.Fake<IGreetingsChannelGateway>();
+            var fakeGreetingsChannelGateway = A.Fake<IGreetingsGateway>();
             fakeGreetingsChannelGateway.ConfigureToNotifyGreetingsSent(greetings => _thenContext.NotifyGreetingsSent(greetings));
             return fakeGreetingsChannelGateway;
         }
 
         private void InitGivenContext()
         {
-            _givenContext = new GivenContext(EmployeesGateway, GreetingsChannelGateway, ChosenDate);
+            _givenContext = new GivenContext(EmployeesGateway, GreetingsGateway, ChosenDate);
         }
 
         private void InitWhenContext()
         {
-            _whenContext = new WhenContext(EmployeesGateway, GreetingsChannelGateway, ChosenDate);
+            _whenContext = new WhenContext(EmployeesGateway, GreetingsGateway, ChosenDate);
         }
 
         private void InitThenContext()
         {
-            _thenContext = new ThenContext(GreetingsChannelGateway, _givenContext, _whenContext);
+            _thenContext = new ThenContext(GreetingsGateway, _givenContext, _whenContext);
         }
 
         internal TestContext Given(Expression<Action<GivenContext>> expression)

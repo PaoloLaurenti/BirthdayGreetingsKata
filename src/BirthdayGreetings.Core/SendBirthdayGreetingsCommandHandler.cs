@@ -10,11 +10,11 @@ namespace BirthdayGreetings.Core
         private readonly EmployeeRepository _employeeRepository;
         private readonly GreetingService _greetingService;
 
-        public SendBirthdayGreetingsCommandHandler(IEmployeeGateway employeesGateway, IGreetingsChannelGateway greetingsChannelGateway, ILog logger)
+        public SendBirthdayGreetingsCommandHandler(IEmployeeGateway employeesGateway, IGreetingsGateway greetingsGateway, ILog logger)
             : base(logger)
         {
             _employeeRepository = new EmployeeRepository(employeesGateway);
-            _greetingService = new GreetingService(greetingsChannelGateway);
+            _greetingService = new GreetingService(greetingsGateway);
         }
 
         public override SendBirthdayGreetingsCommand Handle(SendBirthdayGreetingsCommand command)

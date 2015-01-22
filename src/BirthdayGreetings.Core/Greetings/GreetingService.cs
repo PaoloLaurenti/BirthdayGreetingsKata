@@ -7,18 +7,18 @@ namespace BirthdayGreetings.Core.Greetings
 {
     internal class GreetingService
     {
-        private readonly IGreetingsChannelGateway _greetingsChannelGateway;
+        private readonly IGreetingsGateway _greetingsGateway;
 
-        internal GreetingService(IGreetingsChannelGateway greetingsChannelGateway)
+        internal GreetingService(IGreetingsGateway greetingsGateway)
         {
-            _greetingsChannelGateway = greetingsChannelGateway;
+            _greetingsGateway = greetingsGateway;
         }
 
         internal void SendToAll(IMaybe<List<EmployeeDto>> employees)
         {
             employees
                 .Map(GreetingDtoFactory.CreateGreetingFor)
-                .DoIf(greetings => greetings.Any(), _greetingsChannelGateway.Send);
+                .DoIf(greetings => greetings.Any(), _greetingsGateway.Deliver);
         }
     }
 }
