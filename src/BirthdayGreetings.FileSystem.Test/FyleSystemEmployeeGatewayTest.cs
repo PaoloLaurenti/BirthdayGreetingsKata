@@ -83,7 +83,7 @@ namespace BirthdayGreetings.FileSystem.Test
         }
 
         [Fact]
-        public void Should_raise_exception_if_it_is_unable_to_interpret_employees_information()
+        public void Should_raise_exception_if_it_is_unable_to_interpret_employees_information_getting_employees()
         {
             File.AppendAllLines(_employeeFileFullPath, new [] {"LastName, FirstName, NotADate, Email"});
 
@@ -106,8 +106,5 @@ namespace BirthdayGreetings.FileSystem.Test
             var employeesRows = employeesToPutInFile.Select(x => string.Format("{0}, {1}, {2}, {3}", x.LastName, x.FirstName, x.DateOfBirth.ToString("yyyy/MM/dd"), x.Email));
             File.AppendAllLines(_employeeFileFullPath, employeesRows);
         }
-
-        //TODO LIST
-        // Should_raise_exception_if_it_is_unable_to_interpret_employees_information
     }
 }
