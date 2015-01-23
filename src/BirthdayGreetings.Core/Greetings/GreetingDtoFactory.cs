@@ -15,7 +15,7 @@ namespace BirthdayGreetings.Core.Greetings
 
         public static GreetingDto CreateGreetingFor(EmployeeDto e)
         {
-            return new GreetingDto { FirstName = e.FirstName, Email = e.Email };
+            return new GreetingDto (e.FirstName, e.Email);
         }
     }
 }
