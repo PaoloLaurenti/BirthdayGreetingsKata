@@ -18,13 +18,18 @@ namespace BirthdayGreetings.Email
         {
             if (greetings == null || !greetings.Any())
                 return;
+            greetings
+                .ToList()
+                .ForEach(singleGreeting => _emailChannel.Send(CreateMailMessageFor(singleGreeting)));
+        }
 
+        private static MailMessage CreateMailMessageFor(GreetingDto singleGreeting)
+        {
             var mailMessage = new MailMessage();
-            var greeting = greetings.First();
-            mailMessage.To.Add(greeting.Email);
+            mailMessage.To.Add(singleGreeting.Email);
             mailMessage.Subject = "Happy birthday!";
-            mailMessage.Body = string.Format("Happy birthday, dear {0}!", greeting.FirstName);
-            _emailChannel.Send(mailMessage);
+            mailMessage.Body = string.Format("Happy birthday, dear {0}!", singleGreeting.FirstName);
+            return mailMessage;
         }
     }
 }
