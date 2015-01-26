@@ -18,9 +18,20 @@ namespace BirthdayGreetings.Email
         {
             if (greetings == null || !greetings.Any())
                 return;
+
             greetings
                 .ToList()
-                .ForEach(singleGreeting => _emailChannel.Send(CreateMailMessageFor(singleGreeting)));
+                .ForEach(singleGreeting =>
+                    {
+                        try
+                        {
+                            _emailChannel.Send(CreateMailMessageFor(singleGreeting));
+                        }
+                        catch (System.Exception ex)
+                        {
+                            throw new GreetingsGatewayException(string.Format("Error occurred sending mail to {0}: {1}", singleGreeting.Email, ex.Message), ex);
+                        }
+                    });
         }
 
         private static MailMessage CreateMailMessageFor(GreetingDto singleGreeting)

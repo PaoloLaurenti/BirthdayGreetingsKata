@@ -86,7 +86,7 @@ namespace BirthdayGreetings.Core.Test.Context
 
         internal void GreetingsChannelGatewayExceptionSendingGreetings()
         {
-            A.CallTo(() => _greetingsGateway.Deliver(null)).WithAnyArguments().Throws(x => new GreetingsChannelGatewayException("Exception sending greetings"));            
+            A.CallTo(() => _greetingsGateway.Deliver(null)).WithAnyArguments().Throws(x => new GreetingsGatewayException("Exception sending greetings"));            
         }
     }
 }

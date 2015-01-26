@@ -16,11 +16,11 @@ namespace BirthdayGreetings.Core.Test.Context
             _chosenDate = chosenDate;
             _sut = new SendBirthdayGreetingsCommandHandler(employeesGateway, greetingsGateway, A.Fake<ILog>());
             EmployeeGatewayException = null;
-            GreetingsChannelGatewayException = null;
+            GreetingsGatewayException = null;
         }
 
         private EmployeeGatewayException EmployeeGatewayException { get; set; }
-        private GreetingsChannelGatewayException GreetingsChannelGatewayException { get; set; }
+        private GreetingsGatewayException GreetingsGatewayException { get; set; }
 
         internal void SendingBirthdayGreetings()
         {
@@ -32,9 +32,9 @@ namespace BirthdayGreetings.Core.Test.Context
             {
                 EmployeeGatewayException = employeeException;
             }
-            catch (GreetingsChannelGatewayException greetingsChannelGatewayException)
+            catch (GreetingsGatewayException greetingsChannelGatewayException)
             {
-                GreetingsChannelGatewayException = greetingsChannelGatewayException;
+                GreetingsGatewayException = greetingsChannelGatewayException;
             }
         }
     }

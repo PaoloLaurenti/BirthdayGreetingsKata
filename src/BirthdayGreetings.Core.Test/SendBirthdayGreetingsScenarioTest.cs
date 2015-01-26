@@ -76,7 +76,7 @@ namespace BirthdayGreetings.Core.Test
                 .Given(x => x.ManyEmployeesWithDateOfBirthEqualToTheChosenDate())
                 .Given(x => x.GreetingsChannelGatewayExceptionSendingGreetings())
                 .When(x => x.SendingBirthdayGreetings())
-                .Then(x => x.AnExceptionHasBeenThrownAs<GreetingsChannelGatewayException>());
+                .Then(x => x.AnExceptionHasBeenThrownAs<GreetingsGatewayException>());
         }
 
         //TODO LIST

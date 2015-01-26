@@ -11,8 +11,10 @@ namespace BirthdayGreetings.Email.Test
 {
     public class EmailGreetingsGatewayTest
     {
+        private const string CustomExceptionMessage = "Custom exception message";
         private readonly IEmailChannel _emailChannel;
         private readonly EmailGreetingsGateway _sut;
+        private readonly GreetingDto _exampleGreeting = new GreetingDto("FirstName", "email@Address.com");
 
         public EmailGreetingsGatewayTest()
         {
@@ -39,12 +41,10 @@ namespace BirthdayGreetings.Email.Test
         [Fact]
         public void Should_send_one_email_when_it_is_required_to_send_a_list_with_only_one_greeting()
         {
-            var greeting = new GreetingDto("FirstName", "email@Address.com");
-
-            _sut.Deliver(new List<GreetingDto> { greeting });
+            _sut.Deliver(new List<GreetingDto> { _exampleGreeting });
 
             A.CallTo(() => _emailChannel
-                            .Send(A<MailMessage>.That.Matches(mm => AssertMailMessageIsCoherentWithGreeting(greeting, mm))))
+                            .Send(A<MailMessage>.That.Matches(mm => AssertMailMessageIsCoherentWithGreeting(_exampleGreeting, mm))))
                             .MustHaveHappened(Repeated.Exactly.Once);
         }
 
@@ -63,6 +63,15 @@ namespace BirthdayGreetings.Email.Test
                             .MustHaveHappened(Repeated.Exactly.Times(greetings.Count));
         }
 
+        [Fact]
+        public void Should_raise_an_exception_when_it_is_unable_to_send_an_email()
+        {
+            var exceptionMessage = string.Format(@"Error occurred sending mail to {0}: {1}", _exampleGreeting.Email, CustomExceptionMessage);
+            A.CallTo(() => _emailChannel.Send(null)).WithAnyArguments().Throws(new Exception(CustomExceptionMessage));
+
+            _sut.Invoking(x => x.Deliver(new List<GreetingDto> { _exampleGreeting })).ShouldThrow<GreetingsGatewayException>().WithMessage(exceptionMessage);
+        }
+
         private static bool AssertMailMessageIsCoherentWithGreetings(IEnumerable<GreetingDto> greetings, MailMessage mailMessage)
         {
             var greetingToCheck = greetings.FirstOrDefault(x => x.Email == mailMessage.To.Single().Address);
@@ -78,8 +87,6 @@ namespace BirthdayGreetings.Email.Test
         }
 
         //TODO
-        // Should_send_an_email_for_every_greeting_present_in_the_list_that_has_been_required_to_send
-        // Should_raise_an_exception_when_it_is_unable_to_send_an_email
         // Should_try_to_send_all_the_required_greetings_when_it_is_unable_to_send_one_of_them
     }
 }
