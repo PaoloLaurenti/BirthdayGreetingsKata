@@ -19,6 +19,8 @@ namespace BirthdayGreetings.Email
             if (greetings == null || !greetings.Any())
                 return;
 
+            var exceptionsMessages = new List<string>();
+
             greetings
                 .ToList()
                 .ForEach(singleGreeting =>
@@ -29,9 +31,12 @@ namespace BirthdayGreetings.Email
                         }
                         catch (System.Exception ex)
                         {
-                            throw new GreetingsGatewayException(string.Format("Error occurred sending mail to {0}: {1}", singleGreeting.Email, ex.Message), ex);
+                            exceptionsMessages.Add(string.Format("Error occurred sending mail to {0}: {1}", singleGreeting.Email, ex.Message));
                         }
                     });
+
+            if (exceptionsMessages.Any())
+                throw new GreetingsGatewayException(exceptionsMessages.Aggregate((accumulator, item) => string.Format("{0} - {1}", accumulator, item)));
         }
 
         private static MailMessage CreateMailMessageFor(GreetingDto singleGreeting)
