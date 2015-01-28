@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EmailChannel.cs" />
     <Compile Include="EmailGreetingsGateway.cs" />
     <Compile Include="IEmailChannel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
