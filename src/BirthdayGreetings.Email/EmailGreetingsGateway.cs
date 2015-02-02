@@ -41,10 +41,13 @@ namespace BirthdayGreetings.Email
 
         private static MailMessage CreateMailMessageFor(GreetingDto singleGreeting)
         {
-            var mailMessage = new MailMessage();
+            var mailMessage = new MailMessage
+                {
+                    From = new MailAddress("acme@company.com"),
+                    Subject = "Happy birthday!",
+                    Body = string.Format("Happy birthday, dear {0}!", singleGreeting.FirstName)
+                };
             mailMessage.To.Add(singleGreeting.Email);
-            mailMessage.Subject = "Happy birthday!";
-            mailMessage.Body = string.Format("Happy birthday, dear {0}!", singleGreeting.FirstName);
             return mailMessage;
         }
     }

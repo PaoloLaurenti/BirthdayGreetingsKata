@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F247DF38-1891-4CAF-8D47-0A5B96D9AAA4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{D30C8BE7-1910-41EB-ABB3-6F6E6ECC79DD}"
@@ -27,6 +25,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthdayGreetings.Email.Test", "BirthdayGreetings.Email.Test\BirthdayGreetings.Email.Test.csproj", "{36A16960-6A9E-4FC8-8C86-3E2D906D2864}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthdayGreetings.Email", "BirthdayGreetings.Email\BirthdayGreetings.Email.csproj", "{6257A993-258F-4612-ABF0-C4EA38A3CF2B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthdayGreetings.Main", "BirthdayGreetings.Main\BirthdayGreetings.Main.csproj", "{165A1F5C-0081-4211-B938-CA62907D610E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,15 +62,19 @@ Global
 		{6257A993-258F-4612-ABF0-C4EA38A3CF2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6257A993-258F-4612-ABF0-C4EA38A3CF2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6257A993-258F-4612-ABF0-C4EA38A3CF2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{165A1F5C-0081-4211-B938-CA62907D610E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{165A1F5C-0081-4211-B938-CA62907D610E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{165A1F5C-0081-4211-B938-CA62907D610E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{165A1F5C-0081-4211-B938-CA62907D610E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{4767A1F1-12FA-412A-9E3B-BFED1428FD93} = {8ED1E8AF-DA9D-4AB2-A0AC-8A5D79404DE1}
-		{657D8505-3AE2-4292-9722-554DEC4E3475} = {F803B17A-2D7F-47DF-A30B-15FB5F0AC93E}
 		{8ED1E8AF-DA9D-4AB2-A0AC-8A5D79404DE1} = {F247DF38-1891-4CAF-8D47-0A5B96D9AAA4}
 		{F803B17A-2D7F-47DF-A30B-15FB5F0AC93E} = {F247DF38-1891-4CAF-8D47-0A5B96D9AAA4}
+		{4767A1F1-12FA-412A-9E3B-BFED1428FD93} = {8ED1E8AF-DA9D-4AB2-A0AC-8A5D79404DE1}
+		{657D8505-3AE2-4292-9722-554DEC4E3475} = {F803B17A-2D7F-47DF-A30B-15FB5F0AC93E}
 		{36A16960-6A9E-4FC8-8C86-3E2D906D2864} = {F803B17A-2D7F-47DF-A30B-15FB5F0AC93E}
 	EndGlobalSection
 EndGlobal
