@@ -4,6 +4,6 @@ namespace BirthdayGreetings.Core.Greetings
 {
     public interface IGreetingsGateway
     {
-        void Deliver(IEnumerable<GreetingDto> greetings);
+        void Deliver(GreetingDto greetings);
     }
 }

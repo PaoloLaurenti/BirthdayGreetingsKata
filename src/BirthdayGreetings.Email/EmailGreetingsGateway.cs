@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Mail;
 using BirthdayGreetings.Core.Greetings;
 
@@ -14,29 +12,18 @@ namespace BirthdayGreetings.Email
             _emailChannel = emailChannel;
         }
 
-        public void Deliver(IEnumerable<GreetingDto> greetings)
+        public void Deliver(GreetingDto greeting)
         {
-            if (greetings == null || !greetings.Any())
+            if (greeting == null)
                 return;
-
-            var exceptionsMessages = new List<string>();
-
-            greetings
-                .ToList()
-                .ForEach(singleGreeting =>
-                    {
-                        try
-                        {
-                            _emailChannel.Send(CreateMailMessageFor(singleGreeting));
-                        }
-                        catch (System.Exception ex)
-                        {
-                            exceptionsMessages.Add(string.Format("Error occurred sending mail to {0}: {1}", singleGreeting.Email, ex.Message));
-                        }
-                    });
-
-            if (exceptionsMessages.Any())
-                throw new GreetingsGatewayException(exceptionsMessages.Aggregate((accumulator, item) => string.Format("{0} - {1}", accumulator, item)));
+            try
+            {
+                _emailChannel.Send(CreateMailMessageFor(greeting));
+            }
+            catch (System.Exception ex)
+            {
+                throw new GreetingsGatewayException(string.Format("Error occurred sending mail to {0}: {1}", greeting.Email, ex.Message));
+            }
         }
 
         private static MailMessage CreateMailMessageFor(GreetingDto singleGreeting)

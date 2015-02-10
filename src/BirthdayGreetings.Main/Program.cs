@@ -30,14 +30,13 @@ namespace BirthdayGreetings.Main
 
             var smtpServerSettings = new SmtpServerSettings(smtpHostAddress, Int32.Parse(smtpHostPort), smtpHostUsername, smtpHostPassword);
             var simpleHandlerFactory = new SimpleHandlerFactory(employeeFileFullPath, smtpServerSettings, logger);
-            var builder = CommandProcessorBuilder
-                            .With()
-                            .Handlers(new HandlerConfiguration(registry, simpleHandlerFactory))
-                            .NoPolicy()
-                            .Logger(logger)
-                            .NoTaskQueues()
-                            .RequestContextFactory(new InMemoryRequestContextFactory());
-            builder
+            CommandProcessorBuilder
+                .With()
+                .Handlers(new HandlerConfiguration(registry, simpleHandlerFactory))
+                .NoPolicy()
+                .Logger(logger)
+                .NoTaskQueues()
+                .RequestContextFactory(new InMemoryRequestContextFactory())
                 .Build()
                 //.Post(new SendBirthdayGreetingsCommand(DateTime.Now));
                 .Send(new SendBirthdayGreetingsCommand(DateTime.Now));

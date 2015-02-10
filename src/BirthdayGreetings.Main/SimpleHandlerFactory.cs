@@ -22,10 +22,28 @@ namespace BirthdayGreetings.Main
 
         public IHandleRequests Create(Type handlerType)
         {
+            if (handlerType == typeof(SendGreetingsByEmailCommandHandler))
+            {
+                var emailChannel = new EmailChannel(_smtpServerSettings.HostAddress, _smtpServerSettings.Port, _smtpServerSettings.Username, _smtpServerSettings.Password);
+                var emailGreetingsGateway = new EmailGreetingsGateway(emailChannel);
+                return new SendGreetingsByEmailCommandHandler(emailGreetingsGateway, _logger);
+            }
             var fileSystemEmployeeGateway = new FileSystemEmployeeGateway(_employeeFileFullPath);
-            var emailChannel = new EmailChannel(_smtpServerSettings.HostAddress, _smtpServerSettings.Port, _smtpServerSettings.Username, _smtpServerSettings.Password);
-            var emailGreetingsGateway = new EmailGreetingsGateway(emailChannel);
-            return new SendBirthdayGreetingsCommandHandler(fileSystemEmployeeGateway, null, _logger);
+            return new SendBirthdayGreetingsCommandHandler(fileSystemEmployeeGateway, GetCommandProcessor(this), _logger);
+        }
+
+        private IAmACommandProcessor GetCommandProcessor(IAmAHandlerFactory handlerFactory)
+        {
+            var registry = new SubscriberRegistry();
+            registry.Register<SendGreetingCommand, SendGreetingsByEmailCommandHandler>();
+            return CommandProcessorBuilder
+                .With()
+                .Handlers(new HandlerConfiguration(registry, handlerFactory))
+                .NoPolicy()
+                .Logger(_logger)
+                .NoTaskQueues()
+                .RequestContextFactory(new InMemoryRequestContextFactory())
+                .Build();
         }
 
         public void Release(IHandleRequests handler)
