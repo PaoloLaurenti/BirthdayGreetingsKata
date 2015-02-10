@@ -25,7 +25,7 @@ namespace BirthdayGreetings.Main
             var fileSystemEmployeeGateway = new FileSystemEmployeeGateway(_employeeFileFullPath);
             var emailChannel = new EmailChannel(_smtpServerSettings.HostAddress, _smtpServerSettings.Port, _smtpServerSettings.Username, _smtpServerSettings.Password);
             var emailGreetingsGateway = new EmailGreetingsGateway(emailChannel);
-            return new SendBirthdayGreetingsCommandHandler(fileSystemEmployeeGateway, emailGreetingsGateway, _logger);
+            return new SendBirthdayGreetingsCommandHandler(fileSystemEmployeeGateway, null, _logger);
         }
 
         public void Release(IHandleRequests handler)

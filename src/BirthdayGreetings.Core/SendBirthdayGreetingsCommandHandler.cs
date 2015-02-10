@@ -7,14 +7,16 @@ namespace BirthdayGreetings.Core
 {
     public class SendBirthdayGreetingsCommandHandler : RequestHandler<SendBirthdayGreetingsCommand>
     {
+        private readonly IAmACommandProcessor _commandProcessor;
         private readonly EmployeeRepository _employeeRepository;
         private readonly GreetingService _greetingService;
 
-        public SendBirthdayGreetingsCommandHandler(IEmployeeGateway employeesGateway, IGreetingsGateway greetingsGateway, ILog logger)
+        public SendBirthdayGreetingsCommandHandler(IEmployeeGateway employeesGateway, IAmACommandProcessor commandProcessor, ILog logger)
             : base(logger)
         {
+            _commandProcessor = commandProcessor;
             _employeeRepository = new EmployeeRepository(employeesGateway);
-            _greetingService = new GreetingService(greetingsGateway);
+            _greetingService = new GreetingService(_commandProcessor);
         }
 
         public override SendBirthdayGreetingsCommand Handle(SendBirthdayGreetingsCommand command)

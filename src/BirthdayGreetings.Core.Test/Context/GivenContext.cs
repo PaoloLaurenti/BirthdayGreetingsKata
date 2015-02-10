@@ -11,14 +11,14 @@ namespace BirthdayGreetings.Core.Test.Context
     internal class GivenContext
     {
         private readonly IEmployeeGateway _employeesGateway;
-        private readonly IGreetingsGateway _greetingsGateway;
+        private readonly MockSendBirthdayGreetingsByEmailCommandHandler _sendBirthdayGreetingsByEmailCommandHandler;
         private readonly DateTime _chosenDate;
         private readonly List<EmployeeDto> _employeesWihtBirthdateEqualToChosenDate;
 
-        internal GivenContext(IEmployeeGateway employeesGateway, IGreetingsGateway greetingsGateway, DateTime chosenDate)
+        internal GivenContext(IEmployeeGateway employeesGateway, MockSendBirthdayGreetingsByEmailCommandHandler sendBirthdayGreetingsByEmailCommandHandler, DateTime chosenDate)
         {
             _employeesGateway = employeesGateway;
-            _greetingsGateway = greetingsGateway;
+            _sendBirthdayGreetingsByEmailCommandHandler = sendBirthdayGreetingsByEmailCommandHandler;
             _chosenDate = chosenDate;
             _employeesWihtBirthdateEqualToChosenDate = new List<EmployeeDto>();
         }
@@ -31,6 +31,11 @@ namespace BirthdayGreetings.Core.Test.Context
         internal void AllEmployeesWithDateOfBirthDifferentThanChosenDate()
         {
             Given(GetARandomListOfEmployeesWithBirthdateDifferentFromChosenDate());
+        }
+
+        private void Given(IEnumerable<EmployeeDto> employees)
+        {
+            A.CallTo(() => _employeesGateway.GetEmployees()).Returns(employees);
         }
 
         internal void OnlyOneEmployeeWithDateOfBirthEqualToTheChosenDate()
@@ -58,11 +63,6 @@ namespace BirthdayGreetings.Core.Test.Context
             Given(GetARandomListOfEmployeesWithBirthdateDifferentFromChosenDate().Union(_employeesWihtBirthdateEqualToChosenDate));
         }
 
-        private void Given(IEnumerable<EmployeeDto> employees)
-        {
-            A.CallTo(() => _employeesGateway.GetEmployees()).Returns(employees);
-        }
-
         private IEnumerable<EmployeeDto> GetARandomListOfEmployeesWithBirthdateDifferentFromChosenDate()
         {
             return GetAListWithRandomSizeOf(() => EmployeeDtoFactory.CreateRandomEmployeeDtoWithDateOfBirthDifferentFrom(_chosenDate));
@@ -86,7 +86,7 @@ namespace BirthdayGreetings.Core.Test.Context
 
         internal void GreetingsChannelGatewayExceptionSendingGreetings()
         {
-            A.CallTo(() => _greetingsGateway.Deliver(null)).WithAnyArguments().Throws(x => new GreetingsGatewayException("Exception sending greetings"));            
+            _sendBirthdayGreetingsByEmailCommandHandler.ThrowSendingGreetings(new GreetingsGatewayException("Exception sending greetings"));
         }
     }
 }

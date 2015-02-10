@@ -1,8 +1,9 @@
 using System;
 using System.Linq.Expressions;
 using BirthdayGreetings.Core.Employees;
-using BirthdayGreetings.Core.Greetings;
-using BirthdayGreetings.Core.Test.Extension;
+using Common.Logging;
+using Common.Logging.Configuration;
+using Common.Logging.Simple;
 using FakeItEasy;
 
 namespace BirthdayGreetings.Core.Test.Context
@@ -15,13 +16,13 @@ namespace BirthdayGreetings.Core.Test.Context
         private WhenContext _whenContext;
         private ThenContext _thenContext;
         private IEmployeeGateway _employeeGateway;
-        private IGreetingsGateway _greetingsGateway;
+        private readonly MockSimpleHandlerFactory _mockSimpleHandlerFactory;
+        private readonly MockSendBirthdayGreetingsByEmailCommandHandler _mockSendBirthdayGreetingsByEmailCommandHandler;
 
         internal TestContext()
         {
-            InitGivenContext();
-            InitWhenContext();
-            InitThenContext();
+            _mockSendBirthdayGreetingsByEmailCommandHandler = new MockSendBirthdayGreetingsByEmailCommandHandler(GetLogger());
+            _mockSimpleHandlerFactory = new MockSimpleHandlerFactory(_mockSendBirthdayGreetingsByEmailCommandHandler);
         }
 
         private IEmployeeGateway EmployeesGateway
@@ -29,54 +30,50 @@ namespace BirthdayGreetings.Core.Test.Context
             get { return _employeeGateway ?? (_employeeGateway = A.Fake<IEmployeeGateway>()); }
         }
 
-        private IGreetingsGateway GreetingsGateway
+        private GivenContext GivenContext
         {
-            get { return _greetingsGateway ?? (_greetingsGateway = CreateFakeGreetingsChannelGateway()); }
+            get { return _givenContext ?? (_givenContext = new GivenContext(EmployeesGateway, _mockSendBirthdayGreetingsByEmailCommandHandler, ChosenDate)); }
         }
 
-        private IGreetingsGateway CreateFakeGreetingsChannelGateway()
+        private WhenContext WhenContext
         {
-            var fakeGreetingsChannelGateway = A.Fake<IGreetingsGateway>();
-            fakeGreetingsChannelGateway.ConfigureToNotifyGreetingsSent(greetings => _thenContext.NotifyGreetingsSent(greetings));
-            return fakeGreetingsChannelGateway;
+            get { return _whenContext ?? (_whenContext = new WhenContext(EmployeesGateway, _mockSimpleHandlerFactory, ChosenDate)); }
         }
 
-        private void InitGivenContext()
+        private ThenContext ThenContext
         {
-            _givenContext = new GivenContext(EmployeesGateway, GreetingsGateway, ChosenDate);
-        }
-
-        private void InitWhenContext()
-        {
-            _whenContext = new WhenContext(EmployeesGateway, GreetingsGateway, ChosenDate);
-        }
-
-        private void InitThenContext()
-        {
-            _thenContext = new ThenContext(GreetingsGateway, _givenContext, _whenContext);
+            get { return _thenContext ?? (_thenContext = new ThenContext(GivenContext, WhenContext, _mockSendBirthdayGreetingsByEmailCommandHandler)); }
         }
 
         internal TestContext Given(Expression<Action<GivenContext>> expression)
         {
-            InvokeExpression(expression, _givenContext);
+            InvokeExpression(expression, GivenContext);
             return this;
         }
 
         internal TestContext When(Expression<Action<WhenContext>> expression)
         {
-            InvokeExpression(expression, _whenContext);
+            InvokeExpression(expression, WhenContext);
             return this;
         }
 
         internal TestContext Then(Expression<Action<ThenContext>> expression)
         {
-            InvokeExpression(expression, _thenContext);
+            InvokeExpression(expression, ThenContext);
             return this;
         }
 
         private static void InvokeExpression<T>(Expression<Action<T>> expression, T actionParameter)
         {
             expression.Compile().Invoke(actionParameter);            
+        }
+
+        private static ILog GetLogger()
+        {
+            var properties = new NameValueCollection();
+            properties["showDateTime"] = "true";
+            LogManager.Adapter = new ConsoleOutLoggerFactoryAdapter(properties);
+            return LogManager.GetLogger(typeof(TestContext));
         }
     }
 }
