@@ -38,7 +38,6 @@ namespace BirthdayGreetings.Main
                 .NoTaskQueues()
                 .RequestContextFactory(new InMemoryRequestContextFactory())
                 .Build()
-                //.Post(new SendBirthdayGreetingsCommand(DateTime.Now));
                 .Send(new SendBirthdayGreetingsCommand(DateTime.Now));
         }
 

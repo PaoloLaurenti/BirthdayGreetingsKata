@@ -24,6 +24,7 @@ namespace BirthdayGreetings.Email
             {
                 client.Credentials = new NetworkCredential(_username, _password);
                 client.EnableSsl = true;
+                client.Timeout = 5000;
                 client.Send(email); 
             }
         }
