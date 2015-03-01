@@ -22,17 +22,33 @@ namespace BirthdayGreetings.Main
 
         public IHandleRequests Create(Type handlerType)
         {
-            if (handlerType == typeof(SendGreetingsByEmailCommandHandler))
-            {
-                var emailChannel = new EmailChannel(_smtpServerSettings.HostAddress, _smtpServerSettings.Port, _smtpServerSettings.Username, _smtpServerSettings.Password);
-                var emailGreetingsGateway = new EmailGreetingsGateway(emailChannel);
-                return new SendGreetingsByEmailCommandHandler(emailGreetingsGateway, _logger);
-            }
-            var fileSystemEmployeeGateway = new FileSystemEmployeeGateway(_employeeFileFullPath);
-            return new SendBirthdayGreetingsCommandHandler(fileSystemEmployeeGateway, GetCommandProcessor(this), _logger);
+            return Instanciate(handlerType);
         }
 
-        private IAmACommandProcessor GetCommandProcessor(IAmAHandlerFactory handlerFactory)
+        private IHandleRequests Instanciate(Type handlerType)
+        {
+            return handlerType == typeof (SendGreetingsByEmailCommandHandler)
+                    ? GetSendGreetingsByEmailCommandHandler()
+                    : GetSendBirthdayGreetingsCommandHandler();
+        }
+
+        private IHandleRequests GetSendBirthdayGreetingsCommandHandler()
+        {
+            var fileSystemEmployeeGateway = new FileSystemEmployeeGateway(_employeeFileFullPath);
+            return new SendBirthdayGreetingsCommandHandler(fileSystemEmployeeGateway, GetSendGreetingsByEmailCommandProcessor(this), _logger);
+        }
+
+        private IHandleRequests GetSendGreetingsByEmailCommandHandler()
+        {
+            var emailChannel = new EmailChannel(_smtpServerSettings.HostAddress, 
+                                                _smtpServerSettings.Port,
+                                                _smtpServerSettings.Username, 
+                                                _smtpServerSettings.Password);
+            var emailGreetingsGateway = new EmailGreetingsGateway(emailChannel);
+            return new SendGreetingsByEmailCommandHandler(emailGreetingsGateway, _logger);
+        }
+
+        private IAmACommandProcessor GetSendGreetingsByEmailCommandProcessor(IAmAHandlerFactory handlerFactory)
         {
             var registry = new SubscriberRegistry();
             registry.Register<SendGreetingCommand, SendGreetingsByEmailCommandHandler>();
