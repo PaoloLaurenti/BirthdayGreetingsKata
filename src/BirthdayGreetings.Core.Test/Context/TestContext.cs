@@ -1,10 +1,8 @@
 using System;
 using System.Linq.Expressions;
 using BirthdayGreetings.Core.Employees;
-using Common.Logging;
-using Common.Logging.Configuration;
-using Common.Logging.Simple;
 using FakeItEasy;
+using paramore.brighter.commandprocessor.Logging;
 
 namespace BirthdayGreetings.Core.Test.Context
 {
@@ -70,10 +68,7 @@ namespace BirthdayGreetings.Core.Test.Context
 
         private static ILog GetLogger()
         {
-            var properties = new NameValueCollection();
-            properties["showDateTime"] = "true";
-            LogManager.Adapter = new ConsoleOutLoggerFactoryAdapter(properties);
-            return LogManager.GetLogger(typeof(TestContext));
+            return LogProvider.For<TestContext>();
         }
     }
 }

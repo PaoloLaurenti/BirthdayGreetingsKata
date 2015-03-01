@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using BirthdayGreetings.Core.Greetings;
 using BirthdayGreetings.Core.Test.Extension;
-using Common.Logging;
 using FluentAssertions;
+using paramore.brighter.commandprocessor.Logging;
 using Xunit;
 using paramore.brighter.commandprocessor;
 

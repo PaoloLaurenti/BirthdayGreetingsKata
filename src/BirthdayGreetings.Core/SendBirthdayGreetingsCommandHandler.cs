@@ -1,7 +1,7 @@
 ﻿using BirthdayGreetings.Core.Employees;
 using BirthdayGreetings.Core.Greetings;
-using Common.Logging;
 using paramore.brighter.commandprocessor;
+using paramore.brighter.commandprocessor.Logging;
 
 namespace BirthdayGreetings.Core
 {

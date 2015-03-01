@@ -2,8 +2,8 @@
 using BirthdayGreetings.Core;
 using BirthdayGreetings.Email;
 using BirthdayGreetings.FileSystem;
-using Common.Logging;
 using paramore.brighter.commandprocessor;
+using paramore.brighter.commandprocessor.Logging;
 
 namespace BirthdayGreetings.Main
 {

@@ -1,11 +1,10 @@
 using System;
+using System.Collections.Specialized;
 using BirthdayGreetings.Core.Employees;
 using BirthdayGreetings.Core.Greetings;
-using Common.Logging;
-using Common.Logging.Configuration;
-using Common.Logging.Simple;
 using FakeItEasy;
 using paramore.brighter.commandprocessor;
+using paramore.brighter.commandprocessor.Logging;
 
 namespace BirthdayGreetings.Core.Test.Context
 {
@@ -30,7 +29,7 @@ namespace BirthdayGreetings.Core.Test.Context
                 .With()
                 .Handlers(new HandlerConfiguration(registry, handlerFactory))
                 .NoPolicy()
-                .Logger(GetLogger())
+                .Logger(LogProvider.For<TestContext>())
                 .NoTaskQueues()
                 .RequestContextFactory(new InMemoryRequestContextFactory())
                 .Build();
@@ -53,14 +52,6 @@ namespace BirthdayGreetings.Core.Test.Context
             {
                 GreetingsGatewayException = greetingsChannelGatewayException;
             }
-        }
-
-        private static ILog GetLogger()
-        {
-            var properties = new NameValueCollection();
-            properties["showDateTime"] = "true";
-            LogManager.Adapter = new ConsoleOutLoggerFactoryAdapter(properties);
-            return LogManager.GetLogger(typeof(SendBirthdayGreetingsScenarioTest));
         }
     }
 }
