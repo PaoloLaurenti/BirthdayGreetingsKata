@@ -8,14 +8,14 @@ namespace BirthdayGreetings.Main
     {
         public Message MapToMessage(SendGreetingCommand request)
         {
-            var header = new MessageHeader(messageId: request.Id, topic: "Send greeting", messageType: MessageType.MT_COMMAND);
+            var header = new MessageHeader(messageId: request.Id, topic: "Send_greeting", messageType: MessageType.MT_COMMAND);
             var body = new MessageBody(JsonConvert.SerializeObject(request));
             return new Message(header, body);
         }
 
         public SendGreetingCommand MapToRequest(Message message)
         {
-            return JsonConvert.DeserializeObject<SendGreetingCommand>(message.Body.Value);            
+            return JsonConvert.DeserializeObject<SendGreetingCommand>(message.Body.Value);
         }
     }
 }

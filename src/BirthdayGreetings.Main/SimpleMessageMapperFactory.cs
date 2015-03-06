@@ -7,7 +7,7 @@ namespace BirthdayGreetings.Main
     {
         public IAmAMessageMapper Create(Type messageMapperType)
         {
-            return new SendGreetingCommandMessageMapper();
+            return (IAmAMessageMapper) Activator.CreateInstance(messageMapperType);
         }
     }
 }

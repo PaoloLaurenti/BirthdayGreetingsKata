@@ -81,8 +81,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MsSqlMessageStoreFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SendBirthdayGreetingCommandMessageMapper.cs" />
     <Compile Include="SendGreetingCommandMessageMapper.cs" />
     <Compile Include="SimpleHandlerFactory.cs" />
     <Compile Include="SimpleMessageMapperFactory.cs" />
